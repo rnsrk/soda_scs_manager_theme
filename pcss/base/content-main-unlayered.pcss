@@ -3,21 +3,22 @@
  * Claro’s a:hover removes underline — keep underline here. Skip .button (link styled as button)
  * and admin dashboard cards (whole card is the control; underline looks like body copy).
  * Skip .soda-scs-manager--card-icon (circular info/book controls: own border + bg).
+ * Skip .soda-scs-manager--add-app-popup-card (whole-card links in add-application modal).
  */
-.scs-manager--content-main a:not(.button):not(.soda-scs-manager--admin-card-link):not(.soda-scs-manager--card-icon) {
+.scs-manager--content-main a:not(.button):not(.soda-scs-manager--admin-card-link):not(.soda-scs-manager--card-icon):not(.soda-scs-manager--add-app-popup-card) {
   color: #e68500;
   text-decoration: underline;
   text-underline-offset: 0.125em;
 }
 
-.scs-manager--content-main a:not(.button):not(.soda-scs-manager--admin-card-link):not(.soda-scs-manager--card-icon):hover,
-.scs-manager--content-main a:not(.button):not(.soda-scs-manager--admin-card-link):not(.soda-scs-manager--card-icon):focus {
+.scs-manager--content-main a:not(.button):not(.soda-scs-manager--admin-card-link):not(.soda-scs-manager--card-icon):not(.soda-scs-manager--add-app-popup-card):hover,
+.scs-manager--content-main a:not(.button):not(.soda-scs-manager--admin-card-link):not(.soda-scs-manager--card-icon):not(.soda-scs-manager--add-app-popup-card):focus {
   color: #b86a00;
   text-decoration: underline;
   text-underline-offset: 0.125em;
 }
 
-.scs-manager--content-main a:not(.button):not(.soda-scs-manager--admin-card-link):not(.soda-scs-manager--card-icon):active {
+.scs-manager--content-main a:not(.button):not(.soda-scs-manager--admin-card-link):not(.soda-scs-manager--card-icon):not(.soda-scs-manager--add-app-popup-card):active {
   color: #9a5800;
   text-decoration: underline;
   text-underline-offset: 0.125em;

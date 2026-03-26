@@ -143,13 +143,10 @@
   }
 
   /*
-   * Page title block in content_above (e.g. Dashboard): centered, large display type.
+   * Page title block in content_above (e.g. Dashboard): centered layout.
+   * Typography and block spacing are unlayered in main-layout-unlayered.pcss so they win over Claro.
    */
   .scs-manager--main-layout-container .region-content-above .block-page-title-block {
-    @apply py-3 text-center md:py-5;
-  }
-
-  .scs-manager--main-layout-container .region-content-above .block-page-title-block h1 {
-    @apply m-0 text-4xl font-bold leading-tight tracking-tight text-stone-900 sm:text-5xl md:text-6xl dark:text-stone-100;
+    @apply text-center;
   }
 }

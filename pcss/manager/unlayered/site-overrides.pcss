@@ -214,6 +214,75 @@ a.soda-scs-manager--tile-card::before {
   border-color: #b86a00;
 }
 
+/*
+ * Manager forms: Claro .button--primary uses blue tokens; match SODa orange
+ * (co-working intro CTA, tabs, focus ring).
+ */
+.soda-scs-stack--stack--form-submit.button--primary,
+#soda-scs-manager-project-edit-form .button--primary,
+#soda-scs-user-scs-manager-settings .button--primary {
+  color: #fff;
+  background-color: #e68500;
+  border-color: #e68500;
+}
+
+.soda-scs-stack--stack--form-submit.button--primary:hover,
+.soda-scs-stack--stack--form-submit.button--primary:active,
+#soda-scs-manager-project-edit-form .button--primary:hover,
+#soda-scs-manager-project-edit-form .button--primary:active,
+#soda-scs-user-scs-manager-settings .button--primary:hover,
+#soda-scs-user-scs-manager-settings .button--primary:active {
+  color: #fff;
+  background-color: #b86a00;
+  border-color: #b86a00;
+}
+
+.soda-scs-stack--stack--form-submit.button--primary:focus,
+.soda-scs-stack--stack--form-submit.button--primary:focus-visible,
+#soda-scs-manager-project-edit-form .button--primary:focus,
+#soda-scs-manager-project-edit-form .button--primary:focus-visible,
+#soda-scs-user-scs-manager-settings .button--primary:focus,
+#soda-scs-user-scs-manager-settings .button--primary:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #e68500,
+    0 0 0 4px rgba(230, 133, 0, 0.28);
+}
+
+/*
+ * Project edit: Claro checkboxes use focus blue when checked; match SODa orange.
+ * :not(.error) keeps Claro validation styling.
+ */
+#soda-scs-manager-project-edit-form .form-boolean--type-checkbox:checked:not(.error) {
+  border-color: #e68500;
+  background-color: #e68500;
+}
+
+#soda-scs-manager-project-edit-form .form-boolean--type-checkbox:checked:not(.error):hover,
+#soda-scs-manager-project-edit-form .form-boolean--type-checkbox:checked:not(.error):active {
+  border-color: #b86a00;
+  background-color: #b86a00;
+}
+
+#soda-scs-manager-project-edit-form .form-boolean--type-checkbox:focus:not(.error),
+#soda-scs-manager-project-edit-form .form-boolean--type-checkbox:focus-visible:not(.error) {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #e68500,
+    0 0 0 4px rgba(230, 133, 0, 0.28);
+}
+
+#soda-scs-manager-project-edit-form .form-boolean--type-checkbox:focus:not(.error):hover,
+#soda-scs-manager-project-edit-form .form-boolean--type-checkbox:focus:not(.error):active,
+#soda-scs-manager-project-edit-form .form-boolean--type-checkbox:focus-visible:not(.error):hover,
+#soda-scs-manager-project-edit-form .form-boolean--type-checkbox:focus-visible:not(.error):active {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #e68500,
+    0 0 0 4px rgba(230, 133, 0, 0.28),
+    inset 0 0 0 1px var(--input-fg-color);
+}
+
 /* Image sizing for field--name-field-media-image */
 .field--name-field-media-image img {
   width: 150px;
@@ -318,5 +387,126 @@ nav.menu--language-interface ul.links {
   box-shadow:
     0 0 0 2px #e68500,
     0 0 0 4px rgba(230, 133, 0, 0.28);
+}
+
+/* Co-working intro modal: fixed panel height; scroll body; cap on short viewports. */
+#scs-manager--coworking-intro .scs-manager--coworking-intro-panel {
+  height: 450px;
+  max-height: 90vh;
+}
+
+#scs-manager--coworking-intro .scs-manager--coworking-intro-scroll-body {
+  min-height: 0;
+}
+
+/*
+ * Co-working intro — app slide figures: module SVGs use large mm-based dimensions; cap size
+ * so the panel layout stays stable when Tailwind utilities from Twig are not in the bundle.
+ */
+#scs-manager--coworking-intro .scs-manager--coworking-intro-app-slide-figure {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 11rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 640px) {
+  #scs-manager--coworking-intro .scs-manager--coworking-intro-app-slide-figure {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+#scs-manager--coworking-intro .scs-manager--coworking-intro-app-slide-figure img {
+  display: block;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  max-height: 7rem;
+  object-fit: contain;
+}
+
+#scs-manager--coworking-intro .scs-manager--coworking-intro-app-slide-figure--stack img {
+  max-height: 3.75rem;
+}
+
+#scs-manager--coworking-intro .scs-manager--coworking-intro-app-slide-figure--stack img:last-child {
+  opacity: 0.9;
+}
+
+/* Primary action + success heading — SODa orange (matches cards / focus ring). */
+#scs-manager--coworking-intro .scs-manager--coworking-intro-btn-create-wisski {
+  background-color: #e68500;
+}
+
+#scs-manager--coworking-intro .scs-manager--coworking-intro-btn-create-wisski:hover {
+  background-color: #b86a00;
+}
+
+#scs-manager--coworking-intro .scs-manager--coworking-intro-success-title {
+  color: #b86a00;
+}
+
+/*
+ * Co-working intro modal: Claro green focus ring on buttons/inputs/links — use SODa orange
+ * (same as .field--name-field__use-button:focus).
+ */
+#scs-manager--coworking-intro button:focus,
+#scs-manager--coworking-intro button:focus-visible,
+#scs-manager--coworking-intro a:focus,
+#scs-manager--coworking-intro a:focus-visible,
+#scs-manager--coworking-intro input:focus,
+#scs-manager--coworking-intro input:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #e68500,
+    0 0 0 4px rgba(230, 133, 0, 0.28);
+}
+
+/*
+ * Primary local tasks live in content-above (outside .scs-manager--content-main). Claro uses
+ * --color-absolutezero for the active underline, --tabs--hover-bg-color (blue) on horizontal
+ * hover, and --color-focus (green) on focus. Match SODa orange (content-main-unlayered.pcss).
+ */
+.region-content-above .tabs--primary .tabs__link.is-active {
+  color: #e68500;
+}
+
+.region-content-above .tabs--primary .tabs__link.is-active:hover {
+  color: #b86a00;
+}
+
+.region-content-above .tabs--primary .tabs__tab.is-active::before {
+  border-inline-start-color: #e68500;
+}
+
+@media screen and (min-width: 48em) {
+  .region-content-above .is-horizontal .tabs--primary .tabs__link.is-active::before {
+    border-bottom-color: #e68500;
+  }
+
+  /* Replace Claro’s blue hover wash (--color-bgblue-active). */
+  .region-content-above .is-horizontal .tabs--primary .tabs__link:hover {
+    background-color: rgba(230, 133, 0, 0.12);
+    color: #b86a00;
+  }
+
+  .region-content-above .is-horizontal .tabs--primary .tabs__link.is-active {
+    color: #e68500;
+  }
+
+  .region-content-above .is-horizontal .tabs--primary .tabs__link.is-active:hover {
+    background-color: rgba(230, 133, 0, 0.16);
+    color: #b86a00;
+  }
+
+  /* Replace Claro’s green focus ring on primary tabs. */
+  .region-content-above .is-horizontal .tabs--primary .tabs__link:focus {
+    box-shadow:
+      0 0 0 2px var(--color-gray-050),
+      0 0 0 5px rgba(230, 133, 0, 0.4);
+  }
 }
 

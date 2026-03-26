@@ -12,3 +12,35 @@
   margin-left: auto !important;
   margin-right: auto !important;
 }
+
+/*
+ * Page title in content_above: Claro’s unlayered `.page-title { font-size: var(--font-size-h1) }`
+ * beats `@layer components`, so large type must be unlayered too.
+ * Block margins/padding: Claro’s unlayered `.block-page-title-block` uses margin-block-end; override here
+ * so `@layer components` utilities are not overridden by Claro.
+ */
+.layout-container.scs-manager--main-layout-container .region-content-above .block-page-title-block {
+  margin-block-end: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.layout-container.scs-manager--main-layout-container .region-content-above h1.page-title {
+  margin: 0;
+  /*
+   * Fluid type: scales with viewport between a compact mobile minimum and the
+   * previous desktop cap (4.5rem), replacing stepped breakpoints.
+   */
+  font-size: clamp(1.625rem, 0.85rem + 4.8vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: rgb(0 0 0 / 1);
+  overflow-wrap: anywhere;
+}
+
+@media (width >= 48rem) {
+  .layout-container.scs-manager--main-layout-container .region-content-above h1.page-title {
+    line-height: 1.15;
+  }
+}

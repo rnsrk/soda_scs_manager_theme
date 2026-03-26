@@ -1,8 +1,9 @@
 /* Throbber Overlay Component. */
 
 @layer components {
+  /* Above coworking intro (z-[60]) and add-app modal (9999); full-screen wait must capture input. */
   .soda-scs-manager__throbber-overlay {
-    @apply fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/70 text-white;
+    @apply fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-black/70 text-white;
     @apply transition-opacity duration-300;
     @apply backdrop-blur-sm;
     opacity: 0;

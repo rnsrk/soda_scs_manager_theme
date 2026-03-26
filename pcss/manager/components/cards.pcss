@@ -255,6 +255,29 @@
     @apply mb-4 text-center text-3xl font-bold text-black;
   }
 
+  /* "Your applications" + inline add (+); replaces former add-application card in the grid */
+  .soda-scs-manager--dashboard-heading-with-add {
+    @apply flex flex-wrap items-center justify-center gap-2 md:gap-3;
+  }
+
+  .soda-scs-manager--dashboard-heading-section--inline {
+    @apply mb-0 text-center;
+  }
+
+  .soda-scs-manager--add-app-heading-button {
+    @apply inline-flex shrink-0 items-center justify-center rounded-full border-2 border-stone-400 bg-transparent p-0 font-light text-stone-600 transition-colors;
+    @apply h-10 w-10 md:h-11 md:w-11;
+    @apply cursor-pointer hover:border-[#e68500] hover:text-[#e68500];
+  }
+
+  /* Plus size: do not inherit a heading-sized font from the button. */
+  .soda-scs-manager--add-app-heading-plus {
+    position: relative;
+    top: -1px;
+    font-size: 20px;
+    line-height: 1;
+  }
+
   #clear-all-tags {
     @apply shadow-sm hover:shadow-md transition-shadow;
   }
@@ -305,7 +328,7 @@
     @apply cursor-pointer;
   }
 
-  .soda-scs-manager--add-app-button {
+  .soda-scs-manager--add-app-content .soda-scs-manager--add-app-button {
     position: absolute;
     top: 0;
     left: 0;
@@ -364,5 +387,23 @@
     .soda-scs-manager--add-app-popup .grid {
       @apply grid-cols-1 gap-4;
     }
+  }
+
+  /*
+   * Claro / Gin: .page-wrapper *:focus applies a green (--color-focus) box-shadow.
+   * Mouse click leaves :focus without :focus-visible — clear that ring.
+   * Keyboard :focus-visible: SODa orange ring (same as card-icon / tag filters).
+   */
+  #add-app-popup .soda-scs-manager--add-app-popup-card:focus:not(:focus-visible),
+  #add-app-popup .soda-scs-manager--add-app-popup-card:active {
+    outline: none;
+    box-shadow: none;
+  }
+
+  #add-app-popup .soda-scs-manager--add-app-popup-card:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px #e68500,
+      0 0 0 4px rgba(230, 133, 0, 0.28);
   }
 }

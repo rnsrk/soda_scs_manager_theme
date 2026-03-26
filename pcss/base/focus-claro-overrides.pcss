@@ -1,0 +1,30 @@
+/*
+ * Claro: --color-focus is green; .page-wrapper *:focus and many components use it for
+ * box-shadow / borders. Scope SODa orange to the main canvas and dialogs.
+ */
+.page-wrapper,
+.ui-dialog {
+  --color-focus: #e68500;
+}
+
+/*
+ * Claro elements.pcss: .page-wrapper *:focus applies a box-shadow ring. Mouse clicks
+ * keep :focus without :focus-visible — clear that ring; keyboard keeps :focus-visible.
+ */
+.page-wrapper *:focus:not(:focus-visible),
+.ui-dialog *:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+/*
+ * Dropbutton secondary items (e.g. table “Edit”): border + inset shadow use
+ * !important on :focus — override so mouse focus does not leave a colored frame.
+ */
+.page-wrapper .dropbutton__item:first-of-type ~ .dropbutton__item > a:focus:not(:focus-visible),
+.page-wrapper .dropbutton__item:first-of-type ~ .dropbutton__item > .button:focus:not(:focus-visible),
+.ui-dialog .dropbutton__item:first-of-type ~ .dropbutton__item > a:focus:not(:focus-visible),
+.ui-dialog .dropbutton__item:first-of-type ~ .dropbutton__item > .button:focus:not(:focus-visible) {
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
