@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+/* Scan theme templates and the SCS Manager module for utility classes. */
+@source "../templates/**/*.twig";
+@source "../../../../modules/custom/soda_scs_manager/templates/**/*.twig";
+
+@import "./base/index.pcss";
+@import "./base/nav-unlayered.pcss";
+@import "./base/main-layout-unlayered.pcss";
+@import "./base/content-main-unlayered.pcss";
+@import "./base/sidebar-unlayered.pcss";
+
+/* Module UI styles (formerly web/modules/custom/soda_scs_manager/pcss). */
+@import "./manager/base/index.pcss";
+@import "./manager/components/index.pcss";
+@import "./manager/utilities/index.pcss";
+@import "./manager/unlayered/site-overrides.pcss";

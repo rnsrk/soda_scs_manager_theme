@@ -1,0 +1,278 @@
+/*
+ * Unlayered on purpose: Claro’s classy menu.css is unlayered. Rules inside
+ * Tailwind’s @layer components never beat it, so list markers persist otherwise.
+ */
+.scs-manager--nav-menu-bar .menu-item--expanded,
+.scs-manager--nav-menu-bar .menu-item--collapsed,
+.scs-manager--nav-menu-bar li.menu-item {
+  list-style: none;
+  list-style-type: none;
+  list-style-image: none;
+}
+
+.scs-manager--nav-menu-bar li.menu-item::marker {
+  content: none;
+  font-size: 0;
+}
+
+/* Below md: strip Claro/classy ul.menu margins (e.g. margin-left / margin-inline). */
+@media (max-width: 47.98rem) {
+  .scs-manager--nav-menu-bar ul.menu {
+    margin-block: 0;
+    margin-inline: 0;
+    list-style-image: none;
+  }
+
+  .scs-manager--nav-menu-bar nav > ul.menu {
+    padding-inline-start: 0;
+  }
+}
+
+/*
+ * Primary menu top-level list: one item per row below md.
+ * Unlayered so this wins over @layer flex-wrap and aggregated CSS order quirks.
+ */
+@media (max-width: 47.98rem) {
+  .scs-manager--primary-menu nav > ul.menu {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 100%;
+    gap: 0.5rem;
+  }
+}
+
+@media (min-width: 48rem) {
+  .scs-manager--primary-menu nav > ul.menu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+}
+
+/*
+ * Secondary menu: below md stack blocks vertically (match primary); md+ one horizontal row.
+ * Menu blocks use <nav> as root (h2 + ul.menu).
+ */
+@media (max-width: 47.98rem) {
+  .scs-manager--nav-menu-bar .scs-manager--secondary-menu {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .scs-manager--nav-menu-bar .scs-manager--secondary-menu .region {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    row-gap: 0.5rem;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .scs-manager--nav-menu-bar .scs-manager--secondary-menu .region > * {
+    flex: 0 0 auto;
+  }
+
+  .scs-manager--nav-menu-bar .scs-manager--secondary-menu .region nav {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .scs-manager--secondary-menu nav > ul.menu {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+}
+
+@media (min-width: 48rem) {
+  /*
+   * width: auto — not 100%. width:100% here overrode @layer md:w-auto and made the
+   * secondary strip span the full bar beside flex-1 primary → overlap / broken layout.
+   */
+  .scs-manager--nav-menu-bar .scs-manager--secondary-menu {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    width: auto;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .scs-manager--nav-menu-bar .scs-manager--secondary-menu .region {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    column-gap: 0.5rem;
+    width: auto;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .scs-manager--nav-menu-bar .scs-manager--secondary-menu .region > * {
+    flex: 0 0 auto;
+    min-width: 0;
+  }
+
+  .scs-manager--nav-menu-bar .scs-manager--secondary-menu .region nav {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+
+  .scs-manager--secondary-menu nav > ul.menu {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+}
+
+/*
+ * Vertical centering: nav bar row + secondary region (h2 margins, div.block wrappers).
+ * Unlayered so this wins over @layer components if Claro order shifts.
+ */
+.scs-manager--nav-menu-bar .scs-manager--secondary-menu nav > h2 {
+  margin-block: 0;
+  align-self: center;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.scs-manager--nav-menu-bar .scs-manager--secondary-menu .region > div.block {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+@media (min-width: 48rem) {
+  .scs-manager--nav-menu-bar .scs-manager--nav-menu-inner {
+    align-items: center;
+  }
+
+  .scs-manager--nav-menu-bar .scs-manager--secondary-menu {
+    align-self: center;
+  }
+
+  .scs-manager--nav-menu-bar .region.region-secondary-menu {
+    align-items: center;
+  }
+}
+
+/* Primary region: center <nav> on small screens; left-align with main menu on md+. */
+.scs-manager--nav-menu-bar .scs-manager--primary-menu .region {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+@media (min-width: 48rem) {
+  .scs-manager--nav-menu-bar .scs-manager--primary-menu .region {
+    align-items: flex-start;
+  }
+}
+
+/* Language switcher (and other link lists): ul.links, not ul.menu — classy only resets bullets for ul.links.inline. */
+.scs-manager--nav-menu-bar ul.links {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.scs-manager--nav-menu-bar ul.links > li {
+  list-style: none;
+  list-style-type: none;
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+}
+
+.scs-manager--nav-menu-bar ul.links > li::marker {
+  content: none;
+  font-size: 0;
+}
+
+/* SODa / sammlungen.io link colors (--bs-link-color #e68500, hover #b86a00) */
+.scs-manager--nav-menu-bar .menu-item a {
+  color: #e68500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.scs-manager--nav-menu-bar .menu-item a:hover {
+  color: #b86a00;
+}
+
+/*
+ * Current page: core active-link.js sets .is-active on the <a> (and aria-current="page").
+ * .menu-item--active-trail on <li> includes ancestors — underline only the exact match.
+ */
+.scs-manager--nav-menu-bar .menu-item a.is-active,
+.scs-manager--nav-menu-bar .menu-item a[aria-current='page'],
+.scs-manager--nav-menu-bar .menu-item.is-active a {
+  color: #171717;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.125em;
+}
+
+.scs-manager--nav-menu-bar ul.links a.is-active,
+.scs-manager--nav-menu-bar ul.links a[aria-current='page'] {
+  color: #171717;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.125em;
+}
+
+/*
+ * Claro: .page-wrapper *:focus uses --color-focus (green) box-shadow on all focusable
+ * elements. Mouse clicks leave :focus without :focus-visible — clear that ring here;
+ * keyboard :focus-visible still uses Claro’s default below.
+ */
+.scs-manager--nav-menu-bar .menu-item a:focus:not(:focus-visible),
+.scs-manager--nav-menu-bar ul.links a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.scs-manager--nav-menu-bar ul.links a {
+  color: #e68500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.scs-manager--nav-menu-bar ul.links a:hover {
+  color: #b86a00;
+}

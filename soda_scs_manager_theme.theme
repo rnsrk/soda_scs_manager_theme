@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * @file
+ * Theme hooks for soda_scs_manager_theme.
+ */
+
+declare(strict_types=1);

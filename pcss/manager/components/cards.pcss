@@ -1,0 +1,368 @@
+/* Card Components */
+/* These styles define card layout components */
+
+@layer components {
+  a {
+    &.soda-scs-manager--tile-card {
+      @apply box-border rounded-none p-6 flex flex-col items-center text-center border-0 bg-transparent;
+      @apply no-underline transition-colors duration-200;
+      /* Sammlungen .card: 2px black, radius 0; frame ::after + dot ::before in pcss/manager/unlayered/site-overrides.pcss */
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        box-sizing: border-box;
+        border: 2px solid #000;
+        border-top-color: #000;
+        border-right-color: #000;
+        border-bottom-color: #000;
+        border-left-color: #000;
+        border-radius: 0;
+        background: transparent;
+        pointer-events: none;
+        z-index: 3;
+        transition: border-color 0.2s ease-in-out;
+      }
+
+      &:hover::after {
+        border-color: #e68500;
+      }
+
+      h2 {
+        @apply relative z-[2] bg-white text-xl font-semibold text-[#e68500] underline underline-offset-2 mt-4 mb-2;
+      }
+
+      p {
+        @apply relative z-[2] bg-white text-stone-900;
+      }
+    }
+  }
+
+  .soda-scs-manager--card-type {
+    @apply w-full shrink-0 text-center;
+  }
+
+  .soda-scs-manager--type--card {
+    @apply relative box-border flex h-full min-h-0 w-full flex-col items-stretch p-3 text-center sm:p-4 xl:p-4;
+  }
+
+  .soda-scs-manager--health-icon {
+    @apply absolute top-2 left-2 w-8 h-8 rounded-full border border-stone-300 transition-all duration-200 ease-in-out;
+    @apply bg-white;
+    @apply shadow-sm;
+    z-index: 55;
+
+    &::before {
+      content: '';
+      @apply absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 1;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    &.soda-scs-manager--health-running::before {
+      background-image: url('/modules/custom/soda_scs_manager/assets/images/health-running.svg');
+    }
+
+    &.soda-scs-manager--health-starting::before {
+      background-image: url('/modules/custom/soda_scs_manager/assets/images/health-starting.svg');
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    &.soda-scs-manager--health-stopped::before {
+      background-image: url('/modules/custom/soda_scs_manager/assets/images/health-stopped.svg');
+    }
+
+    &.soda-scs-manager--health-failure::before {
+      background-image: url('/modules/custom/soda_scs_manager/assets/images/health-failure.svg');
+    }
+
+    &.soda-scs-manager--health-unknown::before {
+      background-image: url('/modules/custom/soda_scs_manager/assets/images/health-starting.svg');
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  a.soda-scs-manager--card-icon {
+    @apply no-underline;
+  }
+
+  .soda-scs-manager--card-icon {
+    @apply absolute top-2 w-8 h-8 rounded-full cursor-pointer;
+    @apply bg-white;
+    @apply border border-stone-300;
+    @apply shadow-sm hover:shadow-md;
+    @apply outline-none;
+    z-index: 55;
+    background-color: #fff !important;
+    transition: background-color 0.2s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.4s ease-in-out, transform 0.2s ease-in-out;
+
+    &:hover {
+      @apply border-[#e68500];
+      background-color: #fff;
+    }
+
+    &:focus-visible {
+      @apply bg-white border-[#e68500];
+      background-color: #fff;
+    }
+
+    &:active {
+      @apply bg-white border-[#b86a00];
+      background-color: #fff;
+      transform: scale(0.92);
+    }
+
+    &::before {
+      content: '';
+      @apply absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 1;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: background-image 0.2s ease-in-out;
+    }
+  }
+
+  /* Mask + background-color — same hover/focus/active as .soda-scs-manager--book-icon (darker orange, no image swap) */
+  .soda-scs-manager--details-icon {
+    @apply right-12;
+
+    &::before {
+      background-color: #e68500;
+      background-image: none;
+      mask-image: url('/modules/custom/soda_scs_manager/assets/images/info-icon-mask.svg');
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      mask-position: center;
+      -webkit-mask-image: url('/modules/custom/soda_scs_manager/assets/images/info-icon-mask.svg');
+      -webkit-mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    &:hover::before {
+      background-color: #b86a00;
+    }
+
+    &:focus-visible::before,
+    &:active::before {
+      background-color: #b86a00;
+    }
+  }
+
+  /* Book chip: mask + background-color (matches .soda-scs-manager--details-icon) */
+  .soda-scs-manager--card-icon.soda-scs-manager--book-icon {
+    @apply right-2;
+
+    &::before {
+      background-color: #e68500;
+      background-image: none;
+      mask-image: url('/modules/custom/soda_scs_manager/assets/images/book-icon-mask.svg');
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      mask-position: center;
+      -webkit-mask-image: url('/modules/custom/soda_scs_manager/assets/images/book-icon-mask.svg');
+      -webkit-mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    &:hover::before {
+      background-color: #b86a00;
+    }
+
+    &:focus-visible::before,
+    &:active::before {
+      background-color: #b86a00;
+    }
+  }
+
+  /* Sammlungen .card shell: unset bg, 2px black, radius 0; border drawn on ::after above dot */
+  .soda-scs-manager--card-content-wrapper {
+    @apply box-border flex min-h-0 w-full flex-1 flex-col items-stretch rounded-none border-0 bg-transparent p-3 text-center opacity-100 transition-all duration-300 ease-in-out overflow-visible sm:p-4 xl:p-4;
+  }
+
+  .soda-scs-manager--card-content-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-sizing: border-box;
+    border: 2px solid #000;
+    border-top-color: #000;
+    border-right-color: #000;
+    border-bottom-color: #000;
+    border-left-color: #000;
+    border-radius: 0;
+    background: transparent;
+    pointer-events: none;
+    z-index: 3;
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  .soda-scs-manager--card-content-wrapper:hover::after {
+    border-color: #e68500;
+  }
+
+  .soda-scs-manager--card-content-wrapper.soda-scs-manager--card--not-running::after {
+    background: rgba(120, 113, 108, 0.5);
+    pointer-events: auto;
+    z-index: 40;
+  }
+
+  .soda-scs-manager--card-body {
+    @apply relative z-[2] min-h-0 flex-1 overflow-y-auto bg-white;
+  }
+
+  /* Normalize media area so cards align visually regardless of image proportions. */
+  .soda-scs-manager--image-wrapper {
+    @apply relative z-[2] flex aspect-[4/3] w-full shrink-0 items-center justify-center overflow-hidden bg-white;
+  }
+
+  .soda-scs-manager--card-img-top {
+    @apply block h-full w-full max-h-full max-w-full object-contain object-center;
+  }
+
+  .soda-scs-manager--tag-filter-container {
+    @apply w-full;
+  }
+
+  /* Dashboard page: high-contrast titles (match card accent; avoid low-contrast stone-200 on dark UIs) */
+  .soda-scs-manager--dashboard-heading-filter {
+    @apply m-1 my-1 p-1 text-center text-2xl font-bold text-black;
+  }
+
+  .soda-scs-manager--dashboard-heading-section {
+    @apply mb-4 text-center text-3xl font-bold text-black;
+  }
+
+  #clear-all-tags {
+    @apply shadow-sm hover:shadow-md transition-shadow;
+  }
+
+  .soda-scs-manager--tag-filter-button {
+    @apply shadow-sm hover:shadow-md transition-shadow;
+  }
+
+  .soda-scs-manager--tag-filter-button[aria-pressed="true"] {
+    @apply shadow-md font-semibold;
+  }
+
+  .soda-scs-manager--tag-filter-button[aria-pressed="true"] .soda-scs-manager--tag-remove {
+    @apply inline-block;
+  }
+
+  .soda-scs-manager--tag-remove {
+    @apply font-bold text-base ml-1;
+  }
+
+  .soda-scs-manager--type--card.hidden-by-filter {
+    @apply opacity-0 max-h-0 my-0 py-0 border-0 pointer-events-none;
+  }
+
+  .soda-scs-manager--empty-filter-message {
+    @apply col-span-full text-center py-8 px-4;
+
+    p {
+      @apply text-stone-300 text-lg;
+    }
+
+    a {
+      @apply text-[#e68500] hover:text-[#b86a00] underline transition-colors duration-200;
+    }
+  }
+
+  .soda-scs-manager--card-title {
+    @apply text-base font-semibold text-[#e68500] xl:text-lg;
+  }
+
+  .soda-scs-manager--card-text {
+    @apply text-sm text-stone-800 xl:text-base;
+  }
+
+  /* Add Application Card Styles */
+  .soda-scs-manager--add-app-content {
+    @apply border-dashed border-black hover:border-[#e68500];
+    @apply cursor-pointer;
+  }
+
+  .soda-scs-manager--add-app-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    @apply bg-transparent border-0 p-0 cursor-pointer z-10;
+  }
+
+  .soda-scs-manager--plus-icon-container {
+    @apply transition-all duration-300;
+  }
+
+  .soda-scs-manager--plus-icon {
+    @apply transition-all duration-300;
+  }
+
+  .soda-scs-manager--add-app-content:hover .soda-scs-manager--plus-icon {
+    @apply text-[#e68500] scale-110;
+  }
+
+  /* Popup Modal Styles */
+  .soda-scs-manager--add-app-popup {
+    z-index: 9999;
+    @apply transition-opacity duration-300;
+  }
+
+  .soda-scs-manager--add-app-popup.hidden {
+    @apply opacity-0;
+  }
+
+  .soda-scs-manager--add-app-popup.flex {
+    @apply opacity-100;
+  }
+
+  /* Add app popup: one column on mobile, three on wide */
+  .soda-scs-manager--add-app-popup-inner {
+    max-height: 90vh;
+    @apply overflow-y-auto;
+  }
+
+  @media (max-width: 767px) {
+    .soda-scs-manager--add-app-popup {
+      @apply p-3;
+    }
+
+    .soda-scs-manager--add-app-popup-inner {
+      @apply p-6 max-w-full;
+    }
+
+    .soda-scs-manager--add-app-popup h2 {
+      @apply text-2xl mb-6;
+    }
+
+    .soda-scs-manager--add-app-popup .grid {
+      @apply grid-cols-1 gap-4;
+    }
+  }
+}

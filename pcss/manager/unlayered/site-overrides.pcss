@@ -1,0 +1,322 @@
+/*
+ * Unlayered (imported after Tailwind layers): site-wide overrides previously in the module bundle.
+ * Built from the theme: `npm run build` in soda_scs_manager_theme.
+ */
+
+/*
+ * Applications view grid only — narrower tiles (see view column count) and
+ * tighter vertical rhythm so cards are not huge empty boxes.
+ */
+
+/*
+ * Sammlungen template parity:
+ * - Card: .card { background-color: unset; border: 2px solid black; border-radius: 0; box-sizing: border-box; }
+ * - Dot: .soda-card::before { top/right -10px; 20×20px; #ffa933; border-radius: 50%; z-index: -1 }
+ * Public site uses z-index:-1 on a different DOM/stack; here the frame is drawn on ::after so the
+ * dot uses z-index:1 and still sits under that border (see comment block below).
+ */
+:root {
+  --scs-manager--card-dot-size: 20px;
+  --scs-manager--card-dot-offset: -10px;
+  --scs-manager--card-dot-color: #ffa933;
+}
+
+/* Applications block: wider cell gutter than Views default (inline 10px). !important overrides inline style. */
+.view-id-applications .views-view-responsive-grid {
+  --views-responsive-grid--layout-gap: 2rem !important;
+}
+
+.scs-manager--card-dot,
+.view-id-applications .views-view-responsive-grid__item,
+.soda-scs-manager--card-content-wrapper,
+a.soda-scs-manager--tile-card {
+  position: relative;
+  z-index: 0;
+  box-sizing: border-box;
+}
+
+.scs-manager--card-dot::before,
+.view-id-applications .views-view-responsive-grid__item::before,
+.soda-scs-manager--card-content-wrapper::before,
+a.soda-scs-manager--tile-card::before {
+  content: '';
+  position: absolute;
+  top: var(--scs-manager--card-dot-offset);
+  right: var(--scs-manager--card-dot-offset);
+  width: var(--scs-manager--card-dot-size);
+  height: var(--scs-manager--card-dot-size);
+  background-color: var(--scs-manager--card-dot-color);
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.scs-manager--card-dot > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Frame on ::after (matches 2px solid black card border from template) */
+.view-id-applications .views-view-responsive-grid__item {
+  display: flex;
+  height: 100%;
+  min-height: 0;
+  border: none;
+  border-radius: 0;
+  background-color: unset;
+}
+
+.view-id-applications .views-view-responsive-grid__item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  border: 2px solid #000;
+  border-top-color: #000;
+  border-right-color: #000;
+  border-bottom-color: #000;
+  border-left-color: #000;
+  border-radius: 0;
+  background: transparent;
+  pointer-events: none;
+  z-index: 3;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.view-id-applications .views-view-responsive-grid__item:hover::after {
+  border-color: #e68500;
+}
+
+/* Inner cell layout (responsive grid item) */
+.view-id-applications .views-view-responsive-grid__item-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0.75rem 0.5rem;
+  gap: 0.5rem;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  background-color: unset;
+  border-radius: 0;
+}
+
+.view-id-applications .views-view-responsive-grid__item .views-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.view-id-applications .views-view-responsive-grid__item .views-field-field__app__logo {
+  height: auto;
+  min-height: 0;
+  flex-shrink: 0;
+}
+
+.view-id-applications .views-view-responsive-grid__item .views-field-field__app__logo .field-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.view-id-applications .views-view-responsive-grid__item .views-field-field__app__logo img {
+  width: 64px;
+  height: 64px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.view-id-applications .views-view-responsive-grid__item .views-field-title {
+  height: auto;
+  min-height: 0;
+}
+
+.view-id-applications .views-view-responsive-grid__item .views-field-title .field-content {
+  text-align: center;
+}
+
+.view-id-applications .views-view-responsive-grid__item .views-field-title a {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #e68500;
+  text-decoration: underline;
+  text-underline-offset: 0.125em;
+  transition: color 0.2s ease-in-out;
+}
+
+.view-id-applications .views-view-responsive-grid__item .views-field-title a:hover {
+  color: #b86a00;
+}
+
+.view-id-applications .views-view-responsive-grid__item .media {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.view-id-applications .views-view-responsive-grid__item .contextual {
+  display: none;
+}
+
+#block-olivero-views-block-applications-block-1 h2 {
+  font-size: var(--font-size-l);
+}
+
+.soda-scs-manager--app-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+}
+
+/* Button styling for field--name-field__use-button */
+.main-content .field--name-field__use-button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: center;
+  color: #e68500;
+  background-color: transparent;
+  border: 2px solid #000;
+  border-radius: 0.175rem;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  text-decoration: none;
+}
+
+.main-content .field--name-field__use-button:hover {
+  background-color: #e68500;
+  border-color: #e68500;
+  color: #fff;
+}
+
+.main-content .field--name-field__use-button:hover a {
+  color: white;
+}
+
+.main-content .field--name-field__use-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #e68500, 0 0 0 4px rgba(230, 133, 0, 0.28);
+}
+
+.main-content .field--name-field__use-button:active {
+  background-color: #b86a00;
+  border-color: #b86a00;
+}
+
+/* Image sizing for field--name-field-media-image */
+.field--name-field-media-image img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+
+#block-olivero-betaversionhelptext {
+  background-color: #fef3c7;
+  border: 2px solid #f59e0b;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1rem 0;
+  position: relative;
+}
+
+#block-olivero-betaversionhelptext .block__title {
+  color: #92400e;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+#block-olivero-betaversionhelptext .block__content {
+  color: #78350f;
+  line-height: 1.5;
+}
+
+#block-olivero-betaversionhelptext .block__content .text-content p::before {
+  content: "⚠️";
+  font-size: 1.25rem;
+  margin-right: 0.5rem;
+  color: #f59e0b;
+  display: inline;
+}
+
+#block-olivero-betaversionhelptext a {
+  color: #92400e;
+  text-decoration: underline;
+}
+
+#block-olivero-betaversionhelptext a:hover {
+  color: #78350f;
+}
+
+/* Language interface menu styling */
+nav.menu--language-interface ul.links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 0;
+}
+
+/* Text content ordered list styling */
+.text-content ol {
+  list-style-type: decimal;
+  list-style-position: inside;
+}
+
+/*
+ * Entity card chips (health / details / docs): sit above .soda-scs-manager--card--not-running::after (z-index 40).
+ * Opaque white + isolation avoids the grey wash reading through; !important beats Claro/global link backgrounds.
+ */
+.soda-scs-manager--card-content-wrapper > .soda-scs-manager--health-icon,
+.soda-scs-manager--card-content-wrapper > a.soda-scs-manager--card-icon {
+  isolation: isolate;
+  z-index: 55;
+  background-color: #fff !important;
+}
+
+.soda-scs-manager--card-content-wrapper > a.soda-scs-manager--card-icon:hover,
+.soda-scs-manager--card-content-wrapper > a.soda-scs-manager--card-icon:focus,
+.soda-scs-manager--card-content-wrapper > a.soda-scs-manager--card-icon:focus-visible,
+.soda-scs-manager--card-content-wrapper > a.soda-scs-manager--card-icon:active {
+  background-color: #fff !important;
+}
+
+/*
+ * Claro: .page-wrapper *:focus applies a green (--color-focus) box-shadow on links
+ * and buttons. Use SODa orange focus ring (same as .field--name-field__use-button:focus).
+ */
+.soda-scs-manager--card-content-wrapper > a.soda-scs-manager--card-icon:focus,
+.soda-scs-manager--card-content-wrapper > a.soda-scs-manager--card-icon:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #e68500,
+    0 0 0 4px rgba(230, 133, 0, 0.28);
+}
+
+.soda-scs-manager--tag-filter-button:focus,
+.soda-scs-manager--tag-filter-button:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #e68500,
+    0 0 0 4px rgba(230, 133, 0, 0.28);
+}
+
+#clear-all-tags:focus,
+#clear-all-tags:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #e68500,
+    0 0 0 4px rgba(230, 133, 0, 0.28);
+}
+

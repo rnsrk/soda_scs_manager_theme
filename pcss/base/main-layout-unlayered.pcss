@@ -1,0 +1,14 @@
+/*
+ * Center the primary page column.
+ * Claro system-admin--layout.css sets horizontal margins on `.layout-container` using
+ * selectors such as `.toolbar-tray-open:not(.toolbar-vertical) .layout-container`
+ * (specificity 0,3,0), which beats `.layout-container.scs-manager--main-layout-container`
+ * (0,2,0). !important keeps auto margins winning for horizontal and vertical toolbar.
+ */
+.layout-container.scs-manager--main-layout-container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: min(70%, 1400px);
+  margin-left: auto !important;
+  margin-right: auto !important;
+}

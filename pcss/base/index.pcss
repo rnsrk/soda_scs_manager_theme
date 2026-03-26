@@ -1,0 +1,144 @@
+/*
+ * No global body/typography overrides: Claro provides admin layout and form styles.
+ * Use utilities in Twig or scoped .scs-manager--* rules for SCS Manager UI.
+ */
+
+@layer components {
+  /* Main column width + centering: main-layout-unlayered.pcss (Claro .layout-container wins over @layer). */
+
+  /* Full-width header shell; primary nav bar sits below (hero/highlighted may appear in between). */
+  .scs-manager--content-header {
+    @apply w-full border-b border-stone-200 bg-white;
+  }
+
+  /* Centered dot with rules on both sides: nav menu bar → breadcrumb / main. */
+  .scs-manager--menu-bar-divider {
+    @apply flex items-center gap-5 bg-white py-3;
+  }
+
+  .scs-manager--menu-bar-divider-dot {
+    @apply w-[30px] h-[30px] bg-[#ffa933] rounded-full absolute left-1/2 -translate-x-1/2 z-0;
+  }
+
+  .scs-manager--menu-bar-divider-line {
+    @apply flex-1 h-[3px] bg-black mx-[3px] z-[1];
+  }
+
+  .scs-manager--content-header-top {
+    @apply flex flex-col gap-4 py-4;
+  }
+
+  @media (min-width: 48rem) {
+    .scs-manager--content-header-top {
+      @apply flex-row flex-wrap items-center gap-x-6 gap-y-3;
+    }
+  }
+
+  .scs-manager--content-header-top .region-breadcrumb {
+    @apply w-full shrink-0;
+  }
+
+  .scs-manager--content-header-top .region-header {
+    @apply flex min-w-0 flex-1 flex-wrap items-center gap-x-4 gap-y-2;
+  }
+
+  /* System “Account” menu block id contains account-menu; push to the end on wide screens. */
+  .scs-manager--content-header-top .region-header [id*="account-menu"] {
+    @apply md:ms-auto;
+  }
+
+  /*
+   * Nav bar: mobile = one column, all items centered; md+ = one row, main left / secondary right.
+   */
+  .scs-manager--nav-menu-bar {
+    @apply w-full border-t border-stone-200 bg-white;
+  }
+
+  .scs-manager--nav-menu-inner {
+    @apply flex flex-col items-center gap-3 py-3 md:flex-row md:flex-nowrap md:items-center md:justify-between md:gap-4;
+  }
+
+  .scs-manager--primary-menu {
+    @apply min-w-0 w-full md:flex-1 md:w-auto;
+  }
+
+  .scs-manager--secondary-menu {
+    @apply flex w-full shrink-0 flex-col flex-nowrap items-center justify-center md:w-auto md:flex-row md:items-center md:justify-end;
+  }
+
+  .scs-manager--secondary-menu .region {
+    @apply flex min-w-0 flex-col flex-nowrap items-center justify-center gap-2 md:flex-row md:items-center md:justify-end;
+  }
+
+  /*
+   * Language switcher + languageicons: flags share one box (24×18) so
+   * different PNG aspect ratios do not sit at uneven heights.
+   */
+  .scs-manager--secondary-menu [id*="languageswitcher"] ul.links {
+    @apply m-0 flex h-11 list-none flex-col flex-nowrap items-center justify-center gap-2 p-0;
+  }
+
+  .scs-manager--secondary-menu [id*="languageswitcher"] ul.links li {
+    @apply m-0 flex list-none items-center p-0;
+  }
+
+  .scs-manager--secondary-menu [id*="languageswitcher"] ul.links a {
+    @apply inline-flex items-center justify-center leading-none no-underline;
+  }
+
+  .scs-manager--secondary-menu [id*="languageswitcher"] img.language-icon {
+    @apply block h-[18px] w-[24px] shrink-0 align-middle;
+  }
+
+  /* List markers: see nav-unlayered.pcss (must be unlayered to beat Claro menu.css). */
+
+  /* Claro menu block: <nav><h2>…</h2><ul class="menu"> — not nav>ul, so target any ul in nav. */
+  .scs-manager--nav-menu-bar ul.menu {
+    @apply m-0 list-none p-0;
+  }
+
+  .scs-manager--nav-menu-bar nav ul.menu {
+    @apply flex flex-wrap items-center justify-center gap-2 md:flex-nowrap md:justify-start md:gap-3;
+  }
+
+  .scs-manager--nav-menu-bar nav ul.menu ul.menu {
+    @apply flex-col items-stretch gap-0 pl-3;
+  }
+
+  /* Secondary: same row, links aligned to the bar end on md+. */
+  .scs-manager--secondary-menu nav ul.menu {
+    @apply flex-nowrap md:justify-end;
+  }
+
+  /* Only secondary in bar: hug the right on wide screens. */
+  .scs-manager--nav-menu-inner:not(:has(.scs-manager--primary-menu)) .scs-manager--secondary-menu {
+    @apply md:ms-auto;
+  }
+
+  .scs-manager--primary-menu .menu-item,
+  .scs-manager--secondary-menu .menu-item {
+    @apply m-0 p-0;
+  }
+
+  /* Link colors: nav-unlayered.pcss (SODa orange). */
+  .scs-manager--primary-menu .menu-item a,
+  .scs-manager--secondary-menu .menu-item a {
+    @apply inline-flex min-h-11 items-center rounded-sm px-4 py-2.5 text-base font-medium transition-colors;
+  }
+
+  @media (hover: hover) {
+    .scs-manager--primary-menu .menu-item a:hover,
+    .scs-manager--secondary-menu .menu-item a:hover {
+      @apply bg-orange-50/90;
+    }
+  }
+
+  .scs-manager--primary-menu .menu-item a.is-active,
+  .scs-manager--primary-menu .menu-item a[aria-current='page'],
+  .scs-manager--primary-menu .menu-item.is-active a,
+  .scs-manager--secondary-menu .menu-item a.is-active,
+  .scs-manager--secondary-menu .menu-item a[aria-current='page'],
+  .scs-manager--secondary-menu .menu-item.is-active a {
+    @apply bg-stone-100;
+  }
+}

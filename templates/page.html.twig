@@ -1,0 +1,97 @@
+{#
+/**
+ * @file
+ * Page template: extended regions (header, hero, highlighted, menus, breadcrumb, content, footer grid).
+ *
+ * Region order matches theme .info.yml / block layout expectations.
+ *
+ * @see claro/templates/page.html.twig
+ */
+#}
+<main>
+  {{ page.page_top }}
+  <div class="visually-hidden"><a id="main-content" tabindex="-1"></a></div>
+
+  {% if page.header %}
+    <header class="content-header clearfix scs-manager--content-header">
+      <div class="layout-container scs-manager--content-header-inner">
+        {{ page.header }}
+      </div>
+    </header>
+  {% endif %}
+
+  {% if page.hero %}
+    <div class="scs-manager--hero" role="region" aria-label="{{ 'Hero'|t }}">
+      {{ page.hero }}
+    </div>
+  {% endif %}
+
+  {% if page.highlighted %}
+    <div class="layout-container scs-manager--highlighted">
+      {{ page.highlighted }}
+    </div>
+  {% endif %}
+
+  {% if page.primary_menu or page.secondary_menu %}
+    <div class="scs-manager--nav-menu-bar">
+      <div class="layout-container scs-manager--nav-menu-inner">
+        {% if page.primary_menu %}
+          <div class="scs-manager--primary-menu">
+            {{ page.primary_menu }}
+          </div>
+        {% endif %}
+        {% if page.secondary_menu %}
+          <div class="scs-manager--secondary-menu">
+            {{ page.secondary_menu }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="layout-container scs-manager--menu-bar-divider" role="presentation" aria-hidden="true">
+      <div class="scs-manager--menu-bar-divider-line"></div>
+      <div class="scs-manager--menu-bar-divider-dot"></div>
+    </div>
+  {% endif %}
+
+  {% if page.breadcrumb %}
+    <div class="layout-container scs-manager--breadcrumb">
+      {{ page.breadcrumb }}
+    </div>
+  {% endif %}
+
+  <div class="layout-container scs-manager--main-layout-container">
+    {{ page.content_above }}
+    {{ page.pre_content }}
+    <div class="page-content clearfix scs-manager--page-content">
+      {% if page.help %}
+        <div class="help">
+          {{ page.help }}
+        </div>
+      {% endif %}
+      <div class="scs-manager--content-with-sidebar flex flex-col gap-6 md:flex-row md:items-start">
+        <div class="scs-manager--content-main min-w-0 flex-1">
+          {{ page.content }}
+        </div>
+        {% if page.sidebar %}
+          <aside class="scs-manager--sidebar w-full shrink-0 md:w-72 lg:w-80" role="complementary">
+            {{ page.sidebar }}
+          </aside>
+        {% endif %}
+      </div>
+    </div>
+    {{ page.content_below }}
+  </div>
+
+  {% if page.footer_left or page.footer_left_middle or page.footer_right_middle or page.footer_right %}
+    <footer class="scs-manager--page-footer layout-container mt-8 border-t border-solid border-stone-200 pt-6 dark:border-stone-700" role="contentinfo">
+      <div class="scs-manager--footer-regions grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="scs-manager--footer-region-left">{{ page.footer_left }}</div>
+        <div class="scs-manager--footer-region-left-middle">{{ page.footer_left_middle }}</div>
+        <div class="scs-manager--footer-region-right-middle">{{ page.footer_right_middle }}</div>
+        <div class="scs-manager--footer-region-right">{{ page.footer_right }}</div>
+      </div>
+    </footer>
+  {% endif %}
+
+  {{ page.page_bottom }}
+</main>

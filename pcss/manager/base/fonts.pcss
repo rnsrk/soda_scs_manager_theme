@@ -1,0 +1,17 @@
+/* Base fonts */
+/* These styles define the base font configurations. */
+/* Inter is loaded via soda_scs_manager_theme.libraries.yml (external stylesheet) so the CSS
+   optimizer does not warn on @import and the font is not nested inside @layer. */
+
+@layer base {
+  html, body {
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* CSS custom properties for font families. */
+:root {
+  --font-sans: 'Inter', sans-serif;
+  --default-font-family: var(--font-sans);
+}
+

@@ -1,0 +1,27 @@
+name: 'SCS Manager (Tailwind)'
+type: theme
+description: 'Sub-theme of Claro for SCS Manager, with Tailwind CSS v4 for custom layout and components.'
+package: Custom
+core_version_requirement: ^11
+base theme: claro
+libraries:
+  - soda_scs_manager_theme/global
+regions:
+  page_top: 'Page top'
+  header: Header
+  hero: Hero
+  highlighted: Highlighted
+  primary_menu: 'Primary menu'
+  secondary_menu: 'Secondary menu'
+  breadcrumb: Breadcrumb
+  content_above: 'Content above'
+  pre_content: Pre-content
+  help: Help
+  content: Content
+  sidebar: Sidebar
+  content_below: 'Content below'
+  footer_left: 'Footer left'
+  footer_left_middle: 'Footer left-middle'
+  footer_right_middle: 'Footer right-middle'
+  footer_right: 'Footer right'
+  page_bottom: 'Page bottom'
