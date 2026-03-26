@@ -1,5 +1,6 @@
 name: 'SCS Manager (Tailwind)'
 type: theme
+screenshot: soda_scs_manager_theme.png
 description: 'Sub-theme of Claro for SCS Manager, with Tailwind CSS v4 for custom layout and components.'
 package: Custom
 core_version_requirement: ^11
