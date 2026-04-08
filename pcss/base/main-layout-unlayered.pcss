@@ -25,7 +25,11 @@
   padding-bottom: 0;
 }
 
-.layout-container.scs-manager--main-layout-container .region-content-above h1.page-title {
+/*
+ * Target any h1 in the page-title block (not only h1.page-title): some stacks omit
+ * the class on output, which would otherwise drop this typography to base h1 size.
+ */
+.layout-container.scs-manager--main-layout-container .region-content-above .block-page-title-block h1 {
   margin: 0;
   /*
    * Fluid type: scales with viewport between a compact mobile minimum and the
@@ -40,7 +44,7 @@
 }
 
 @media (width >= 48rem) {
-  .layout-container.scs-manager--main-layout-container .region-content-above h1.page-title {
+  .layout-container.scs-manager--main-layout-container .region-content-above .block-page-title-block h1 {
     line-height: 1.15;
   }
 }

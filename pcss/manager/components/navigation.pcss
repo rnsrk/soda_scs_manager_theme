@@ -50,7 +50,8 @@
 }
 
 /* Notifications menu item styling. */
-.menu-item--notifications {
+.menu-item--notifications,
+.scs-manager--notifications-menu-item {
   position: relative;
 
   a {
@@ -108,7 +109,8 @@
 }
 
 /* Only show the dot when there are notifications. */
-.menu-item--notifications:not(.has-notifications) .notification-dot {
+.menu-item--notifications:not(.has-notifications) .notification-dot,
+.scs-manager--notifications-menu-item:not(.has-notifications) .notification-dot {
   display: none;
 }
 

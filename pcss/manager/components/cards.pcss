@@ -264,10 +264,34 @@
     @apply mb-0 text-center;
   }
 
+  /* Circular (+) beside section headings: dashboard (button) and projects page title (link). */
   .soda-scs-manager--add-app-heading-button {
-    @apply inline-flex shrink-0 items-center justify-center rounded-full border-2 border-stone-400 bg-transparent p-0 font-light text-stone-600 transition-colors;
+    @apply box-border inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full border-2 border-stone-400 bg-transparent p-0 font-light text-stone-600;
     @apply h-10 w-10 md:h-11 md:w-11;
-    @apply cursor-pointer hover:border-[#e68500] hover:text-[#e68500];
+    @apply transition-all duration-200 ease-in-out;
+    @apply hover:border-[#e68500] hover:text-[#e68500];
+  }
+
+  .soda-scs-manager--add-app-heading-button:active {
+    transform: scale(0.92);
+  }
+
+  /* Link variant: match button (no body-link underline / visited purple). */
+  a.soda-scs-manager--add-app-heading-button {
+    @apply no-underline;
+  }
+
+  a.soda-scs-manager--add-app-heading-button:any-link {
+    @apply text-stone-600;
+  }
+
+  a.soda-scs-manager--add-app-heading-button:visited {
+    @apply border-stone-400 text-stone-600;
+  }
+
+  a.soda-scs-manager--add-app-heading-button:hover,
+  a.soda-scs-manager--add-app-heading-button:visited:hover {
+    @apply border-[#e68500] text-[#e68500];
   }
 
   /* Plus size: do not inherit a heading-sized font from the button. */

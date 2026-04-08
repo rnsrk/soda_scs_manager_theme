@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Theme implementation for the page title.
+ *
+ * Available variables:
+ * - title: The page title, a translated string.
+ * - title_attributes: HTML attributes for the <h1> element.
+ *
+ * @see template_preprocess_page_title()
+ */
+#}
+{% if title %}
+  <h1{{ title_attributes.addClass('page-title') }}>{{ title }}</h1>
+{% endif %}
