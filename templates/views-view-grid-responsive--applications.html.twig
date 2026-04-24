@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Applications view: feature-grid markup (soda-scs-manager__grid + article boxes).
+ *
+ * Replaces views-view-responsive-grid wrappers; card chrome from features.pcss;
+ * field/logo/title rules in pcss/manager/unlayered/site-overrides.pcss.
+ */
+#}
+<div{{ attributes.addClass('soda-scs-manager__grid', 'soda-scs-manager__grid--applications') }}>
+  {% for item in items %}
+    <article{{ item.attributes.addClass('soda-scs-manager__box') }}>
+      {{- item.content -}}
+    </article>
+  {% endfor %}
+</div>

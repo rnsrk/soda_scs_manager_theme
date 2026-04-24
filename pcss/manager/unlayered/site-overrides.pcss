@@ -21,13 +21,37 @@
   --scs-manager--card-dot-color: #ffa933;
 }
 
-/* Applications block: wider cell gutter than Views default (inline 10px). !important overrides inline style. */
-.view-id-applications .views-view-responsive-grid {
+/*
+ * Applications view — two DOM shapes:
+ * - Default Views responsive grid: .views-view-responsive-grid__item (rules below).
+ * - Theme override: article.soda-scs-manager__box (views-view-grid-responsive--application(s).html.twig); card chrome from features.pcss.
+ * - View id may be `application` or `applications` (:is selector below).
+ */
+
+/* Wider cell gutter than Views default inline style.
+ * Replace core flex-wrap layout with CSS Grid: 1 col (mobile), 2 (md), 3 (xl). */
+:is(.view-id-applications, .view-id-application) .views-view-responsive-grid {
   --views-responsive-grid--layout-gap: 2rem !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--views-responsive-grid--layout-gap);
+  align-items: stretch;
+}
+
+@media (width >= 48rem) {
+  :is(.view-id-applications, .view-id-application) .views-view-responsive-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (width >= 80rem) {
+  :is(.view-id-applications, .view-id-application) .views-view-responsive-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .scs-manager--card-dot,
-.view-id-applications .views-view-responsive-grid__item,
+:is(.view-id-applications, .view-id-application) .views-view-responsive-grid__item,
 .soda-scs-manager--card-content-wrapper,
 a.soda-scs-manager--tile-card {
   position: relative;
@@ -36,7 +60,7 @@ a.soda-scs-manager--tile-card {
 }
 
 .scs-manager--card-dot::before,
-.view-id-applications .views-view-responsive-grid__item::before,
+:is(.view-id-applications, .view-id-application) .views-view-responsive-grid__item::before,
 .soda-scs-manager--card-content-wrapper::before,
 a.soda-scs-manager--tile-card::before {
   content: '';
@@ -56,9 +80,13 @@ a.soda-scs-manager--tile-card::before {
   z-index: 2;
 }
 
-/* Frame on ::after (matches 2px solid black card border from template) */
-.view-id-applications .views-view-responsive-grid__item {
+/* Frame on ::after (Sammlungen-style card border). */
+:is(.view-id-applications, .view-id-application) .views-view-responsive-grid__item {
   display: flex;
+  flex: none;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
   height: 100%;
   min-height: 0;
   border: none;
@@ -66,7 +94,7 @@ a.soda-scs-manager--tile-card::before {
   background-color: unset;
 }
 
-.view-id-applications .views-view-responsive-grid__item::after {
+:is(.view-id-applications, .view-id-application) .views-view-responsive-grid__item::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -83,12 +111,11 @@ a.soda-scs-manager--tile-card::before {
   transition: border-color 0.2s ease-in-out;
 }
 
-.view-id-applications .views-view-responsive-grid__item:hover::after {
+:is(.view-id-applications, .view-id-application) .views-view-responsive-grid__item:hover::after {
   border-color: #e68500;
 }
 
-/* Inner cell layout (responsive grid item) */
-.view-id-applications .views-view-responsive-grid__item-inner {
+:is(.view-id-applications, .view-id-application) .views-view-responsive-grid__item-inner {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -104,7 +131,7 @@ a.soda-scs-manager--tile-card::before {
   border-radius: 0;
 }
 
-.view-id-applications .views-view-responsive-grid__item .views-field {
+:is(.view-id-applications, .view-id-application) .views-view-responsive-grid__item .views-field {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -112,35 +139,35 @@ a.soda-scs-manager--tile-card::before {
   width: 100%;
 }
 
-.view-id-applications .views-view-responsive-grid__item .views-field-field__app__logo {
+:is(.view-id-applications, .view-id-application) .views-view-responsive-grid__item .views-field-field__app__logo {
   height: auto;
   min-height: 0;
   flex-shrink: 0;
 }
 
-.view-id-applications .views-view-responsive-grid__item .views-field-field__app__logo .field-content {
+:is(.view-id-applications, .view-id-application) .views-view-responsive-grid__item .views-field-field__app__logo .field-content {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.view-id-applications .views-view-responsive-grid__item .views-field-field__app__logo img {
+:is(.view-id-applications, .view-id-application) .views-view-responsive-grid__item .views-field-field__app__logo img {
   width: 64px;
   height: 64px;
   max-width: 100%;
   object-fit: contain;
 }
 
-.view-id-applications .views-view-responsive-grid__item .views-field-title {
+:is(.view-id-applications, .view-id-application) .views-view-responsive-grid__item .views-field-title {
   height: auto;
   min-height: 0;
 }
 
-.view-id-applications .views-view-responsive-grid__item .views-field-title .field-content {
+:is(.view-id-applications, .view-id-application) .views-view-responsive-grid__item .views-field-title .field-content {
   text-align: center;
 }
 
-.view-id-applications .views-view-responsive-grid__item .views-field-title a {
+:is(.view-id-applications, .view-id-application) .views-view-responsive-grid__item .views-field-title a {
   font-size: 0.9375rem;
   font-weight: 500;
   line-height: 1.35;
@@ -150,18 +177,127 @@ a.soda-scs-manager--tile-card::before {
   transition: color 0.2s ease-in-out;
 }
 
-.view-id-applications .views-view-responsive-grid__item .views-field-title a:hover {
+:is(.view-id-applications, .view-id-application) .views-view-responsive-grid__item .views-field-title a:hover {
   color: #b86a00;
 }
 
-.view-id-applications .views-view-responsive-grid__item .media {
+:is(.view-id-applications, .view-id-application) .views-view-responsive-grid__item .media {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.view-id-applications .views-view-responsive-grid__item .contextual {
+:is(.view-id-applications, .view-id-application) .views-view-responsive-grid__item .contextual {
   display: none;
+}
+
+/* Long-form app description: block flow, full cell width (overrides centered flex on .views-field). */
+:is(.view-id-applications, .view-id-application) .views-view-responsive-grid__item .views-field-field__app__description {
+  align-self: stretch;
+  width: 100%;
+  max-width: 100%;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+:is(.view-id-applications, .view-id-application) .views-view-responsive-grid__item .views-field-field__app__description .field-content {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  text-align: left;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  line-height: 1.45;
+  font-size: 0.8125rem;
+}
+
+/* Applications tiles (article grid override): centered stack. */
+:is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box {
+  align-items: center;
+  text-align: center;
+}
+
+:is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box .views-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+:is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box .views-field-field__app__logo {
+  height: auto;
+  min-height: 0;
+  flex-shrink: 0;
+}
+
+:is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box .views-field-field__app__logo .field-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box .views-field-field__app__logo img {
+  width: 64px;
+  height: 64px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+:is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box .views-field-title {
+  height: auto;
+  min-height: 0;
+}
+
+:is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box .views-field-title .field-content {
+  text-align: center;
+}
+
+:is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box .views-field-title a {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--scs-manager--feature-card-accent, #e68500);
+  text-decoration: underline;
+  text-underline-offset: 0.125em;
+  transition: color 0.2s ease-in-out;
+}
+
+:is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box .views-field-title a:hover {
+  color: color-mix(in srgb, var(--scs-manager--feature-card-accent, #e68500) 78%, black);
+}
+
+:is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box .media {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box .contextual {
+  display: none;
+}
+
+:is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box .views-field-field__app__description {
+  align-self: stretch;
+  width: 100%;
+  max-width: 100%;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+:is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box .views-field-field__app__description .field-content {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  text-align: left;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  line-height: 1.45;
+  font-size: 0.8125rem;
 }
 
 #block-olivero-views-block-applications-block-1 h2 {
@@ -169,12 +305,11 @@ a.soda-scs-manager--tile-card::before {
 }
 
 .soda-scs-manager--app-link {
+  display: block;
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 5;
+  inset: 0;
+  z-index: 6;
+  cursor: pointer;
 }
 
 /* Button styling for field--name-field__use-button */

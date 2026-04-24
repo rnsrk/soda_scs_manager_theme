@@ -1,0 +1,213 @@
+/* Feature grid: same card chrome as .view-id-applications .views-view-responsive-grid (site-overrides). */
+
+@layer components {
+  .soda-scs-manager__grid {
+    @apply grid min-h-0 grid-cols-1 md:grid-cols-2 items-stretch;
+    gap: 2rem;
+  }
+
+  /* Applications view: up to 3 columns on wide screens (matches prior Views column count). */
+  .soda-scs-manager__grid--applications {
+    @apply xl:grid-cols-3;
+  }
+
+  .soda-scs-manager__grid > .soda-scs-manager__box {
+    --scs-manager--feature-card-accent: #e68500;
+
+    position: relative;
+    z-index: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+    background-color: unset;
+    gap: 0.5rem;
+    padding: 0.75rem 0.5rem;
+  }
+
+  .soda-scs-manager__grid > .soda-scs-manager__box::before {
+    content: '';
+    position: absolute;
+    top: var(--scs-manager--card-dot-offset);
+    right: var(--scs-manager--card-dot-offset);
+    width: var(--scs-manager--card-dot-size);
+    height: var(--scs-manager--card-dot-size);
+    background-color: var(--scs-manager--card-dot-color, #ffa933);
+    border-radius: 50%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .soda-scs-manager__grid > .soda-scs-manager__box::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-sizing: border-box;
+    border: 2px solid #000;
+    border-radius: 0;
+    background: transparent;
+    pointer-events: none;
+    z-index: 3;
+    transition: border-color 0.2s ease-in-out;
+  }
+
+  .soda-scs-manager__grid > .soda-scs-manager__box:hover::after {
+    border-color: var(--scs-manager--feature-card-accent);
+  }
+
+  /* Exclude overlay link so it stays above content (full-card hit target). */
+  .soda-scs-manager__grid > .soda-scs-manager__box > *:not(.soda-scs-manager--app-link) {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Plain title when a single stretched link covers the card (no <a> inside h2). */
+  .soda-scs-manager__grid > .soda-scs-manager__box:has(> .soda-scs-manager--app-link) h2 {
+    color: var(--scs-manager--feature-card-accent);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 0.125em;
+  }
+
+  .soda-scs-manager__grid > .soda-scs-manager__box:has(> .soda-scs-manager--app-link) p img {
+    display: block;
+    margin-inline: auto;
+  }
+
+  /* Full-card link: keep above border (::after z-index 3). */
+  .soda-scs-manager__grid > .soda-scs-manager__box > .soda-scs-manager--app-link {
+    z-index: 6;
+    text-decoration: none;
+  }
+
+  .soda-scs-manager__grid > .soda-scs-manager__box > .soda-scs-manager--app-link:focus-visible {
+    outline: 2px solid var(--scs-manager--feature-card-accent);
+    outline-offset: 2px;
+  }
+
+  /* Screen-reader / duplicate label inside overlay <a> (hide visually). */
+  .soda-scs-manager__grid > .soda-scs-manager__box > .soda-scs-manager--app-link > * {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* Remove extra paragraph link (duplicate title or legacy markup); full card uses .soda-scs-manager--app-link only. */
+  .soda-scs-manager__grid > .soda-scs-manager__box:has(> .soda-scs-manager--app-link) p > a {
+    pointer-events: none;
+  }
+
+  .soda-scs-manager__grid > .soda-scs-manager__box:has(> .soda-scs-manager--app-link) p > a:not(:has(img)) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .soda-scs-manager__grid > .soda-scs-manager__box:has(> .soda-scs-manager--app-link) p > a:has(img) {
+    display: contents;
+  }
+
+  .soda-scs-manager__grid > .soda-scs-manager__box.soda-scs-manager__dot-orange {
+    --scs-manager--card-dot-color: #ffa933;
+    --scs-manager--feature-card-accent: #e68500;
+  }
+
+  .soda-scs-manager__grid > .soda-scs-manager__box.soda-scs-manager__dot-teal {
+    --scs-manager--card-dot-color: #2dd4bf;
+    --scs-manager--feature-card-accent: #0d9488;
+  }
+
+  .soda-scs-manager__grid > .soda-scs-manager__box.soda-scs-manager__dot-magenta {
+    --scs-manager--card-dot-color: #e879f9;
+    --scs-manager--feature-card-accent: #c026d3;
+  }
+
+  .soda-scs-manager__grid > .soda-scs-manager__box.soda-scs-manager__dot-navy {
+    --scs-manager--card-dot-color: #1e3a5a;
+    --scs-manager--feature-card-accent: #0f172a;
+  }
+
+  .soda-scs-manager__grid > .soda-scs-manager__box.soda-scs-manager__dot-green {
+    --scs-manager--card-dot-color: #4ade80;
+    --scs-manager--feature-card-accent: #16a34a;
+  }
+
+  .soda-scs-manager__grid > .soda-scs-manager__box.soda-scs-manager__dot-brown {
+    --scs-manager--card-dot-color: #d4a574;
+    --scs-manager--feature-card-accent: #92400e;
+  }
+
+  /*
+   * Application(s) views: same palette as .soda-scs-manager__dot-* but by row order,
+   * because Views cannot emit per-entity accent classes on these cards.
+   */
+  :is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box:nth-child(6n + 1) {
+    --scs-manager--card-dot-color: #ffa933;
+    --scs-manager--feature-card-accent: #e68500;
+  }
+
+  :is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box:nth-child(6n + 2) {
+    --scs-manager--card-dot-color: #2dd4bf;
+    --scs-manager--feature-card-accent: #0d9488;
+  }
+
+  :is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box:nth-child(6n + 3) {
+    --scs-manager--card-dot-color: #e879f9;
+    --scs-manager--feature-card-accent: #c026d3;
+  }
+
+  :is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box:nth-child(6n + 4) {
+    --scs-manager--card-dot-color: #1e3a5a;
+    --scs-manager--feature-card-accent: #0f172a;
+  }
+
+  :is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box:nth-child(6n + 5) {
+    --scs-manager--card-dot-color: #4ade80;
+    --scs-manager--feature-card-accent: #16a34a;
+  }
+
+  :is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box:nth-child(6n + 6) {
+    --scs-manager--card-dot-color: #d4a574;
+    --scs-manager--feature-card-accent: #92400e;
+  }
+
+  .soda-scs-manager__grid > .soda-scs-manager__box h2 {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: inherit;
+    text-align: center;
+  }
+
+  .soda-scs-manager__grid > .soda-scs-manager__box p {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.45;
+    color: #1c1917;
+    text-align: center;
+  }
+
+  .soda-scs-manager__grid > .soda-scs-manager__box p strong {
+    font-weight: 600;
+  }
+}

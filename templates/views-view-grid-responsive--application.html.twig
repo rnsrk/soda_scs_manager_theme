@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Application view (singular id): same markup as views-view-grid-responsive--applications.html.twig.
+ *
+ * Theme suggestion: views_view_grid_responsive__application (view machine name: application).
+ */
+#}
+<div{{ attributes.addClass('soda-scs-manager__grid', 'soda-scs-manager__grid--applications') }}>
+  {% for item in items %}
+    <article{{ item.attributes.addClass('soda-scs-manager__box') }}>
+      {{- item.content -}}
+    </article>
+  {% endfor %}
+</div>
