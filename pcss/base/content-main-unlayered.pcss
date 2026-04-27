@@ -5,21 +5,22 @@
  * Skip .soda-scs-manager--card-icon (circular info/book controls: own border + bg).
  * Skip .soda-scs-manager--add-app-popup-card (whole-card links in add-application modal).
  * Skip .soda-scs-manager--add-app-heading-button (circular (+) beside headings; own border styling).
+ * Skip .health-badge (status chip; green/amber pill + optional login link, not body copy).
  */
-.scs-manager--content-main a:not(.button):not(.soda-scs-manager--admin-card-link):not(.soda-scs-manager--card-icon):not(.soda-scs-manager--add-app-heading-button):not(.soda-scs-manager--add-app-popup-card) {
+.scs-manager--content-main a:not(.button):not(.soda-scs-manager--admin-card-link):not(.soda-scs-manager--card-icon):not(.soda-scs-manager--add-app-heading-button):not(.soda-scs-manager--add-app-popup-card):not(.health-badge) {
   color: #e68500;
   text-decoration: underline;
   text-underline-offset: 0.125em;
 }
 
-.scs-manager--content-main a:not(.button):not(.soda-scs-manager--admin-card-link):not(.soda-scs-manager--card-icon):not(.soda-scs-manager--add-app-heading-button):not(.soda-scs-manager--add-app-popup-card):hover,
-.scs-manager--content-main a:not(.button):not(.soda-scs-manager--admin-card-link):not(.soda-scs-manager--card-icon):not(.soda-scs-manager--add-app-heading-button):not(.soda-scs-manager--add-app-popup-card):focus {
+.scs-manager--content-main a:not(.button):not(.soda-scs-manager--admin-card-link):not(.soda-scs-manager--card-icon):not(.soda-scs-manager--add-app-heading-button):not(.soda-scs-manager--add-app-popup-card):not(.health-badge):hover,
+.scs-manager--content-main a:not(.button):not(.soda-scs-manager--admin-card-link):not(.soda-scs-manager--card-icon):not(.soda-scs-manager--add-app-heading-button):not(.soda-scs-manager--add-app-popup-card):not(.health-badge):focus {
   color: #b86a00;
   text-decoration: underline;
   text-underline-offset: 0.125em;
 }
 
-.scs-manager--content-main a:not(.button):not(.soda-scs-manager--admin-card-link):not(.soda-scs-manager--card-icon):not(.soda-scs-manager--add-app-heading-button):not(.soda-scs-manager--add-app-popup-card):active {
+.scs-manager--content-main a:not(.button):not(.soda-scs-manager--admin-card-link):not(.soda-scs-manager--card-icon):not(.soda-scs-manager--add-app-heading-button):not(.soda-scs-manager--add-app-popup-card):not(.health-badge):active {
   color: #9a5800;
   text-decoration: underline;
   text-underline-offset: 0.125em;

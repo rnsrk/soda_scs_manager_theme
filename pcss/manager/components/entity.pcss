@@ -62,6 +62,26 @@
     /* transform + transform-origin keep layout stable; animation won't affect parent size */
     transform-origin: center;
 
+    &:is(a) {
+      @apply no-underline cursor-pointer;
+      /* Beat any straggler body-link / unlayered rules. */
+      text-decoration: none !important;
+      text-underline-offset: 0;
+    }
+
+    &:is(a):hover,
+    &:is(a):focus,
+    &:is(a):focus-visible,
+    &:is(a):active,
+    &:is(a):visited {
+      @apply no-underline;
+      text-decoration: none !important;
+    }
+
+    &:is(a):hover {
+      @apply opacity-90;
+    }
+
     .health-badge__symbol {
       @apply flex-shrink-0 text-sm leading-none;
     }

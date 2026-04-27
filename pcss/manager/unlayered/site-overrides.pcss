@@ -671,3 +671,34 @@ nav.menu--language-interface ul.links {
   margin-right: 0px;
 }
 
+/*
+ * Entity header health chip as <a> (e.g. WissKI login): @layer components styles lose to
+ * unlayered Claro/Gin and load order. Pin the running pill (Tailwind green palette) here, last
+ * in the theme bundle, with !important (same idea as .soda-scs-manager--health-icon chips).
+ */
+.soda-scs-manager--entity--health a.health-badge.health-badge--running {
+  background-color: #dcfce7 !important;
+  color: #166534 !important;
+  border: 1px solid #bbf7d0 !important;
+  text-decoration: none !important;
+}
+
+.soda-scs-manager--entity--health a.health-badge.health-badge--running:hover,
+.soda-scs-manager--entity--health a.health-badge.health-badge--running:focus,
+.soda-scs-manager--entity--health a.health-badge.health-badge--running:focus-visible,
+.soda-scs-manager--entity--health a.health-badge.health-badge--running:active,
+.soda-scs-manager--entity--health a.health-badge.health-badge--running:visited {
+  color: #166534 !important;
+  background-color: #dcfce7 !important;
+  border-color: #bbf7d0 !important;
+  text-decoration: none !important;
+}
+
+.soda-scs-manager--entity--health a.health-badge.health-badge--running .health-badge__symbol {
+  color: #16a34a !important;
+}
+
+.soda-scs-manager--entity--health a.health-badge.health-badge--running:hover {
+  opacity: 0.9;
+}
+
