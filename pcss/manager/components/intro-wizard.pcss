@@ -1,0 +1,67 @@
+/*
+ * Co-working intro modal. Scoped to #scs-manager--coworking-intro; @layer components + @apply
+ * matches other manager component PCSS.
+ */
+
+@layer components {
+  #scs-manager--coworking-intro {
+    .scs-manager--coworking-intro-panel {
+      @apply h-[500px] max-h-[90vh];
+    }
+
+    /* Physical right edge when Tailwind utilities from Twig are not in the bundle. */
+    .scs-manager--coworking-intro-skip-row {
+      @apply text-right;
+    }
+
+    .scs-manager--coworking-intro-scroll-body {
+      @apply min-h-0;
+    }
+
+    /*
+     * App slide figures: module SVGs use large mm-based dimensions; cap size
+     * so the panel layout stays stable when Tailwind utilities from Twig are not in the bundle.
+     */
+    .scs-manager--coworking-intro-app-slide-figure {
+      @apply box-border shrink-0 w-full max-w-[11rem] mx-auto sm:mx-0;
+    }
+
+    .scs-manager--coworking-intro-app-slide-figure img {
+      @apply block max-w-full w-auto h-auto max-h-[7rem] object-contain;
+    }
+
+    .scs-manager--coworking-intro-app-slide-figure--stack img {
+      @apply max-h-[3.75rem];
+    }
+
+    .scs-manager--coworking-intro-app-slide-figure--stack img:last-child {
+      @apply opacity-90;
+    }
+
+    /* Primary action + success heading — SODa orange (matches cards / focus ring). */
+    .scs-manager--coworking-intro-btn-create-wisski {
+      @apply bg-[#e68500];
+    }
+
+    .scs-manager--coworking-intro-btn-create-wisski:hover {
+      @apply bg-[#b86a00];
+    }
+
+    .scs-manager--coworking-intro-success-title {
+      @apply text-[#b86a00];
+    }
+
+    /*
+     * Claro green focus ring on buttons/inputs/links — use SODa orange
+     * (same as .field--name-field__use-button:focus).
+     */
+    button:focus,
+    button:focus-visible,
+    a:focus,
+    a:focus-visible,
+    input:focus,
+    input:focus-visible {
+      @apply outline-none shadow-[0_0_0_2px_#e68500,0_0_0_4px_rgba(230,133,0,0.28)];
+    }
+  }
+}

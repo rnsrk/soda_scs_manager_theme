@@ -199,7 +199,56 @@
 
   /* Sammlungen .card shell: unset bg, 2px black, radius 0; border drawn on ::after above dot */
   .soda-scs-manager--card-content-wrapper {
-    @apply box-border flex min-h-0 w-full flex-1 flex-col items-stretch rounded-none border-0 bg-transparent p-3 text-center opacity-100 transition-all duration-300 ease-in-out overflow-visible sm:p-4 xl:p-4;
+    @apply relative box-border flex min-h-0 w-full flex-1 flex-col items-stretch rounded-none border-0 bg-transparent p-3 text-center opacity-100 transition-all duration-300 ease-in-out overflow-visible sm:p-4 xl:p-4;
+  }
+
+  /* Status copy as a centered panel above grey overlay (::after z-40; banner z-[45]; icons z-55). */
+  .soda-scs-manager--card-status-banner {
+    pointer-events: none;
+    @apply absolute left-1/2 top-1/2 z-[45] flex max-h-[min(22rem,calc(100%-2rem))] w-max min-w-0 flex-col items-stretch gap-2 overflow-y-auto text-center opacity-0 invisible;
+    max-width: calc(100% - 1.25rem);
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .soda-scs-manager--card-content-wrapper.soda-scs-manager--card--not-running .soda-scs-manager--card-status-banner:not(:empty) {
+    @apply visible rounded-sm border border-stone-200 bg-white px-3 py-3 opacity-100 shadow-md md:px-4 md:py-3.5;
+  }
+
+  /* Same ring spinner as .soda-scs-manager__throbber-overlay__spinner, smaller for dashboard card. */
+  .soda-scs-manager--card-status-banner__throbber {
+    @apply mb-1 box-border flex-shrink-0 self-center rounded-full border-[3px] border-orange-300 border-t-orange-500;
+    width: 2.25rem;
+    height: 2.25rem;
+    @apply animate-spin;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .soda-scs-manager--card-status-banner__throbber {
+      animation: none;
+      opacity: 0.85;
+    }
+  }
+
+  /* Dark copy on white panel (also readable on stopped/offline if panel reused). */
+  .soda-scs-manager--card-status-banner__primary {
+    @apply max-w-full text-sm font-semibold leading-snug text-stone-900 md:text-base;
+  }
+
+  .soda-scs-manager--card-status-banner__secondary {
+    @apply max-w-full text-xs font-normal leading-snug text-stone-800 md:text-sm;
+  }
+
+  .soda-scs-manager--card-status-banner__detail {
+    @apply block font-medium text-stone-900;
+  }
+
+  .soda-scs-manager--card-status-banner a.soda-scs-manager--card-status-banner__mailto {
+    pointer-events: auto;
+    @apply font-medium text-[#b86a00] underline decoration-[#b86a00]/80 underline-offset-2 transition-colors;
+  }
+
+  .soda-scs-manager--card-status-banner a.soda-scs-manager--card-status-banner__mailto:hover {
+    @apply text-[#8c5200] decoration-[#8c5200];
   }
 
   .soda-scs-manager--card-content-wrapper::after {
@@ -227,6 +276,15 @@
     background: rgba(120, 113, 108, 0.5);
     pointer-events: auto;
     z-index: 40;
+  }
+
+  /* Starting uses same grey wash as default not-running (JS/Twig keep class for semantics / future use). */
+  .soda-scs-manager--card-content-wrapper.soda-scs-manager--card--not-running.soda-scs-manager--card--status-stopped::after {
+    background: rgba(87, 83, 78, 0.55);
+  }
+
+  .soda-scs-manager--card-content-wrapper.soda-scs-manager--card--not-running.soda-scs-manager--card--status-offline::after {
+    background: rgba(68, 64, 60, 0.62);
   }
 
   .soda-scs-manager--card-body {

@@ -17,14 +17,24 @@
 
 .keycloak-user-registration-form input[type="text"],
 .keycloak-user-registration-form input[type="email"],
-.keycloak-user-registration-form input[type="password"] {
+.keycloak-user-registration-form input[type="password"],
+.keycloak-user-registration-form select {
   @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight;
 }
 
 .keycloak-user-registration-form input[type="text"]:focus,
 .keycloak-user-registration-form input[type="email"]:focus,
-.keycloak-user-registration-form input[type="password"]:focus {
+.keycloak-user-registration-form input[type="password"]:focus,
+.keycloak-user-registration-form select:focus {
   @apply outline-none ring-2 ring-blue-500;
+}
+
+.keycloak-user-registration-form details {
+  @apply border border-gray-200 rounded-lg p-3 bg-gray-50;
+}
+
+.keycloak-user-registration-form details summary {
+  @apply cursor-pointer font-bold text-gray-800;
 }
 
 .keycloak-user-registration-form .description {
