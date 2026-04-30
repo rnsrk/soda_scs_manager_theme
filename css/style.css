@@ -869,9 +869,6 @@
   .h-\[500px\] {
     height: 500px;
   }
-  .h-auto {
-    height: auto;
-  }
   .h-full {
     height: 100%;
   }
@@ -880,9 +877,6 @@
   }
   .max-h-24 {
     max-height: calc(var(--spacing) * 24);
-  }
-  .max-h-\[7rem\] {
-    max-height: 7rem;
   }
   .max-h-\[90vh\] {
     max-height: 90vh;
@@ -947,9 +941,6 @@
   .w-\[min\(900px\,max\(200px\,50vw\)\)\] {
     width: min(900px, max(200px, 50vw));
   }
-  .w-auto {
-    width: auto;
-  }
   .w-full {
     width: 100%;
   }
@@ -964,9 +955,6 @@
   }
   .max-w-7xl {
     max-width: var(--container-7xl);
-  }
-  .max-w-\[11rem\] {
-    max-width: 11rem;
   }
   .max-w-\[min\(12rem\,42\%\)\] {
     max-width: min(12rem, 42%);
@@ -6263,6 +6251,16 @@ details.current_members, details.pending_invitations {
   }
   .scs-manager--coworking-intro-skip:hover {
     color: var(--color-stone-800);
+  }
+  .scs-manager--coworking-intro-panel-divider {
+    flex-shrink: 0;
+    padding-inline: calc(var(--spacing) * 6);
+  }
+  #scs-manager--coworking-intro[data-coworking-intro-active-slide="0"] .scs-manager--coworking-intro-panel-divider {
+    display: none;
+  }
+  #scs-manager--coworking-intro [data-coworking-intro-slide="7"] > .scs-manager--coworking-intro-welcome-divider--static, #scs-manager--coworking-intro [data-coworking-intro-slide="8"] > .scs-manager--coworking-intro-welcome-divider--static {
+    margin-bottom: calc(var(--spacing) * 3);
   }
   .scs-manager--coworking-intro-scroll-body {
     min-height: calc(var(--spacing) * 0);

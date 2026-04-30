@@ -83,6 +83,21 @@
     @apply text-stone-800;
   }
 
+  /* Line + dot under the title; hidden on welcome (slide 0) — see data-coworking-intro-active-slide on #scs-manager--coworking-intro. */
+  .scs-manager--coworking-intro-panel-divider {
+    @apply shrink-0 px-6;
+  }
+
+  #scs-manager--coworking-intro[data-coworking-intro-active-slide="0"] .scs-manager--coworking-intro-panel-divider {
+    @apply hidden;
+  }
+
+  /* Slides 7–8: extra static divider inside scroll body; slightly tighter bottom margin under panel divider. */
+  #scs-manager--coworking-intro [data-coworking-intro-slide="7"] > .scs-manager--coworking-intro-welcome-divider--static,
+  #scs-manager--coworking-intro [data-coworking-intro-slide="8"] > .scs-manager--coworking-intro-welcome-divider--static {
+    @apply mb-3;
+  }
+
   .scs-manager--coworking-intro-scroll-body {
     @apply min-h-0 flex-1 overflow-y-auto px-6 text-sm leading-relaxed text-stone-700;
   }
@@ -247,7 +262,7 @@
   }
 
   /*
-   * Slides 1–5: same geometry as welcome divider end state; no data-coworking-intro-welcome-divider / no animation.
+   * Panel divider + in-slide static (if any): same geometry as welcome divider end state; no animation.
    */
   #scs-manager--coworking-intro .scs-manager--coworking-intro-welcome-divider--static .scs-manager--coworking-intro-welcome-divider-line {
     @apply scale-x-100;
