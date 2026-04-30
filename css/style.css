@@ -6259,9 +6259,6 @@ details.current_members, details.pending_invitations {
   #scs-manager--coworking-intro[data-coworking-intro-active-slide="0"] .scs-manager--coworking-intro-panel-divider {
     display: none;
   }
-  #scs-manager--coworking-intro [data-coworking-intro-slide="7"] > .scs-manager--coworking-intro-welcome-divider--static, #scs-manager--coworking-intro [data-coworking-intro-slide="8"] > .scs-manager--coworking-intro-welcome-divider--static {
-    margin-bottom: calc(var(--spacing) * 3);
-  }
   .scs-manager--coworking-intro-scroll-body {
     min-height: calc(var(--spacing) * 0);
     flex: 1;
