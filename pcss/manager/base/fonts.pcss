@@ -1,7 +1,7 @@
 /* Base fonts */
 /* These styles define the base font configurations. */
-/* Inter is loaded via soda_scs_manager_theme.libraries.yml (external stylesheet) so the CSS
-   optimizer does not warn on @import and the font is not nested inside @layer. */
+/* Inter @font-face rules live in css/inter.css (bundled woff2 under fonts/inter/), attached first
+   from soda_scs_manager_theme.libraries.yml so faces load before Tailwind utilities. */
 
 @layer base {
   html, body {

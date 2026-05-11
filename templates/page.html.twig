@@ -83,12 +83,14 @@
   </div>
 
   {% if page.footer_left or page.footer_left_middle or page.footer_right_middle or page.footer_right %}
-    <footer class="scs-manager--page-footer layout-container mt-8 border-t border-solid border-stone-200 pt-6 dark:border-stone-700" role="contentinfo">
-      <div class="scs-manager--footer-regions grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <div class="scs-manager--footer-region-left">{{ page.footer_left }}</div>
-        <div class="scs-manager--footer-region-left-middle">{{ page.footer_left_middle }}</div>
-        <div class="scs-manager--footer-region-right-middle">{{ page.footer_right_middle }}</div>
-        <div class="scs-manager--footer-region-right">{{ page.footer_right }}</div>
+    <footer class="scs-manager--page-footer mt-8" role="contentinfo">
+      <div class="layout-container">
+        <div class="scs-manager--footer-regions grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="scs-manager--footer-region-left">{{ page.footer_left }}</div>
+          <div class="scs-manager--footer-region-left-middle">{{ page.footer_left_middle }}</div>
+          <div class="scs-manager--footer-region-right-middle">{{ page.footer_right_middle }}</div>
+          <div class="scs-manager--footer-region-right">{{ page.footer_right }}</div>
+        </div>
       </div>
     </footer>
   {% endif %}

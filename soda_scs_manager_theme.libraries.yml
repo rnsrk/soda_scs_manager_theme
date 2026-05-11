@@ -2,10 +2,5 @@ global:
   version: VERSION
   css:
     theme:
-      'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap':
-        type: external
-        minified: true
-        weight: -10
-        attributes:
-          crossorigin: anonymous
+      css/inter.css: { minified: false, preprocess: false, weight: -10 }
       css/style.css: { minified: true, preprocess: false, weight: 200 }
