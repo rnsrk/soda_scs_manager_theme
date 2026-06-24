@@ -6,3 +6,186 @@
  */
 
 declare(strict_types=1);
+
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Render\Markup;
+
+/**
+ * Implements hook_preprocess_menu_link().
+ *
+ * Note: footer menus rendered by core menu template do not use the
+ * menu_link.html.twig theme wrapper, so this hook is not called for all
+ * footer menu links. See soda_scs_manager_theme_preprocess_menu().
+ */
+
+function soda_scs_manager_theme_preprocess_menu_link(array &$variables) {
+	// Defensive checks for the original link object.
+	$link = $variables['element']['#original_link'] ?? NULL;
+	if (!$link) {
+		return;
+	}
+
+	// Determine title and url for matching. Title may be translated.
+	$title = (string) $link->getTitle();
+	$url = (string) $link->getUrlObject()->toString();
+
+	// Normalise for matching.
+	$low = mb_strtolower($title);
+
+	// Map of keywords to SVG icons (inline) — keep icons minimal.
+	$icons = [
+		'imprint' => '<svg class="w-4 h-4 text-current" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/><path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/></svg>',
+		'terms' => '<svg class="w-4 h-4 text-current" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M14 4.5V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6.5L14 4.5z"/><path d="M6 8h4v1H6V8zM6 10h4v1H6v-1zM7 5h2v1H7V5z"/></svg>',
+		'privacy' => '<svg class="w-4 h-4 text-current" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z"/><path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>',
+	];
+
+	// Decide which icon to use by title or by URL fragment.
+	$chosen = NULL;
+	if (str_contains($low, 'imprint') || str_contains($url, 'impressum')) {
+		$chosen = $icons['imprint'];
+	}
+	elseif (str_contains($low, 'terms') || str_contains($url, 'terms-of-service') || str_contains($url, 'nutzungsbedingungen')) {
+		$chosen = $icons['terms'];
+	}
+	elseif (str_contains($low, 'privacy') || str_contains($low, 'datenschutz') || str_contains($url, 'datenschutzerklaerungen')) {
+		$chosen = $icons['privacy'];
+	}
+
+	if ($chosen) {
+		// Apply Tailwind utility classes to the link wrapper.
+		$variables['element']['#attributes']['class'][] = 'flex';
+		$variables['element']['#attributes']['class'][] = 'items-center';
+		$variables['element']['#attributes']['class'][] = 'gap-2';
+		$variables['element']['#attributes']['class'][] = 'text-[100%]';
+
+		// Ensure the link title is rendered as HTML and prepend the SVG.
+		$variables['element']['#localized_options']['html'] = TRUE;
+		$escaped_title = htmlspecialchars($title, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+		$variables['element']['#title'] = Markup::create($chosen . '<span>' . $escaped_title . '</span>');
+	}
+}
+
+/**
+ * Implements hook_preprocess_menu().
+ *
+ * The footer menu in templates uses the core `menu.html.twig` and the
+ * `link()` Twig function which bypasses the `menu_link` theme wrapper.
+ * As a result `hook_preprocess_menu_link()` is not always invoked for
+ * footer menu items. Detect the footer menu here (by menu name) and
+ * mutate the item titles / urls directly so the icons and Tailwind
+ * classes are present when `menu.html.twig` renders the links.
+ */
+function soda_scs_manager_theme_preprocess_menu(array &$variables): void {
+	// Menu name can be provided as '#menu_name' or 'menu_name' depending on
+	// the render context. Normalise to string.
+	$menu_name = (string) ($variables['#menu_name'] ?? $variables['menu_name'] ?? '');
+
+	// We care about footer variants (example: footer, footer-left, footer_right).
+	if ($menu_name === '' || strpos($menu_name, 'footer') === FALSE) {
+		return;
+	}
+
+	// Simple inline icons mapped by keyword.
+	$icons = [
+		'imprint' => '<svg class="w-4 h-4 text-current" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/><path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/></svg>',
+		'terms' => '<svg class="w-4 h-4 text-current" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M14 4.5V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6.5L14 4.5z"/><path d="M6 8h4v1H6V8zM6 10h4v1H6v-1zM7 5h2v1H7V5z"/></svg>',
+		'privacy' => '<svg class="w-4 h-4 text-current" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z"/><path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>',
+	];
+
+	// The menu render array has an 'items' key in most contexts. Iterate
+	// and adjust titles / link attributes so the core menu template outputs
+	// the desired markup and Tailwind classes.
+	if (!empty($variables['items']) && is_array($variables['items'])) {
+		foreach ($variables['items'] as &$item) {
+			soda_scs_manager_theme_prepare_footer_menu_item($item, $icons);
+		}
+	}
+}
+
+/**
+ * Helper to mutate a single footer menu item (and its children).
+ */
+function soda_scs_manager_theme_prepare_footer_menu_item(array &$item, array $icons): void {
+	if (empty($item['title'])) {
+		return;
+	}
+
+	$title = (string) $item['title'];
+	$low = mb_strtolower($title);
+	$url = '';
+	if (!empty($item['url']) && $item['url'] instanceof \Drupal\Core\Url) {
+		$url = (string) $item['url']->toString();
+	}
+
+	$chosen = NULL;
+	if (str_contains($low, 'imprint') || str_contains($url, 'impressum')) {
+		$chosen = $icons['imprint'];
+	}
+	elseif (str_contains($low, 'terms') || str_contains($url, 'terms-of-service') || str_contains($url, 'nutzungsbedingungen')) {
+		$chosen = $icons['terms'];
+	}
+	elseif (str_contains($low, 'privacy') || str_contains($low, 'datenschutz') || str_contains($url, 'datenschutzerklaerungen')) {
+		$chosen = $icons['privacy'];
+	}
+
+	if ($chosen) {
+		$item['title'] = Markup::create($chosen . '<span>' . Html::escape($title) . '</span>');
+
+		// If the item has a Url object, add Tailwind classes to its attributes.
+		if (!empty($item['url']) && $item['url'] instanceof \Drupal\Core\Url) {
+			$options = $item['url']->getOptions();
+			$attributes = $options['attributes'] ?? [];
+			if (!isset($attributes['class'])) {
+				$attributes['class'] = [];
+			}
+			elseif (!is_array($attributes['class'])) {
+				$attributes['class'] = [$attributes['class']];
+			}
+			$attributes['class'] = array_merge($attributes['class'], ['inline-flex', 'items-center', 'gap-2', 'text-[100%]']);
+			$options['attributes'] = $attributes;
+			$item['url']->setOptions($options);
+		}
+	}
+
+	if (!empty($item['below']) && is_array($item['below'])) {
+		foreach ($item['below'] as &$child) {
+			soda_scs_manager_theme_prepare_footer_menu_item($child, $icons);
+		}
+	}
+}
+
+/**
+ * Implements hook_preprocess_block().
+ *
+ * Provide an alternative entrypoint: detect the footer menu block by its
+ * front-end class (e.g. `menu--footer-left`) and mutate the block content
+ * render array if present. This helps when the render context doesn't
+ * expose the menu name in `preprocess_menu()`.
+ */
+function soda_scs_manager_theme_preprocess_block(array &$variables): void {
+	if (empty($variables['attributes'])) {
+		return;
+	}
+
+	// Attributes is a Drupal\Core\Template\Attribute object; check for the
+	// footer menu class (match variants like menu--footer-left).
+	try {
+		$has_footer_class = $variables['attributes']->hasClass('menu--footer-left') || $variables['attributes']->hasClass('menu--footer');
+	}
+	catch (\Throwable $e) {
+		$has_footer_class = FALSE;
+	}
+
+	if (!$has_footer_class) {
+		return;
+	}
+
+	// Ensure the block wrapper (outer div) carries the page footer class so
+	// site-wide footer CSS selectors (site-overrides.pcss) can target descendants:
+	// .scs-manager--page-footer ul.menu { ... }
+	// .scs-manager--page-footer li.menu-item { ... }
+	// .scs-manager--page-footer .menu-item a:not(.button) { ... }
+	if (!empty($variables['attributes']) && $variables['attributes'] instanceof \Drupal\Core\Template\Attribute) {
+		$variables['attributes']->addClass('scs-manager--page-footer');
+	}
+}
