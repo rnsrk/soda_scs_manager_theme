@@ -18,53 +18,6 @@ use Drupal\Core\Render\Markup;
  * footer menu links. See soda_scs_manager_theme_preprocess_menu().
  */
 
-function soda_scs_manager_theme_preprocess_menu_link(array &$variables) {
-	// Defensive checks for the original link object.
-	$link = $variables['element']['#original_link'] ?? NULL;
-	if (!$link) {
-		return;
-	}
-
-	// Determine title and url for matching. Title may be translated.
-	$title = (string) $link->getTitle();
-	$url = (string) $link->getUrlObject()->toString();
-
-	// Normalise for matching.
-	$low = mb_strtolower($title);
-
-	// Map of keywords to SVG icons (inline) — keep icons minimal.
-	$icons = [
-		'imprint' => '<svg class="w-4 h-4 text-current" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/><path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/></svg>',
-		'terms' => '<svg class="w-4 h-4 text-current" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M14 4.5V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6.5L14 4.5z"/><path d="M6 8h4v1H6V8zM6 10h4v1H6v-1zM7 5h2v1H7V5z"/></svg>',
-		'privacy' => '<svg class="w-4 h-4 text-current" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z"/><path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>',
-	];
-
-	// Decide which icon to use by title or by URL fragment.
-	$chosen = NULL;
-	if (str_contains($low, 'imprint') || str_contains($url, 'impressum')) {
-		$chosen = $icons['imprint'];
-	}
-	elseif (str_contains($low, 'terms') || str_contains($url, 'terms-of-service') || str_contains($url, 'nutzungsbedingungen')) {
-		$chosen = $icons['terms'];
-	}
-	elseif (str_contains($low, 'privacy') || str_contains($low, 'datenschutz') || str_contains($url, 'datenschutzerklaerungen')) {
-		$chosen = $icons['privacy'];
-	}
-
-	if ($chosen) {
-		// Apply Tailwind utility classes to the link wrapper.
-		$variables['element']['#attributes']['class'][] = 'flex';
-		$variables['element']['#attributes']['class'][] = 'items-center';
-		$variables['element']['#attributes']['class'][] = 'gap-2';
-		$variables['element']['#attributes']['class'][] = 'text-[100%]';
-
-		// Ensure the link title is rendered as HTML and prepend the SVG.
-		$variables['element']['#localized_options']['html'] = TRUE;
-		$escaped_title = htmlspecialchars($title, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-		$variables['element']['#title'] = Markup::create($chosen . '<span>' . $escaped_title . '</span>');
-	}
-}
-
 /**
  * Implements hook_preprocess_menu().
  *
@@ -125,13 +78,13 @@ function soda_scs_manager_theme_prepare_footer_menu_item(array &$item, array $ic
 	}
 
 	$chosen = NULL;
-	if (str_contains($low, 'imprint') || str_contains($url, 'impressum')) {
+	if (str_contains($low, 'imprint') || str_contains($url, 'imprint') || str_contains($url, 'impressum')) {
 		$chosen = $icons['imprint'];
 	}
 	elseif (str_contains($low, 'terms') || str_contains($url, 'terms-of-service') || str_contains($url, 'nutzungsbedingungen')) {
 		$chosen = $icons['terms'];
 	}
-	elseif (str_contains($low, 'privacy') || str_contains($low, 'datenschutz') || str_contains($url, 'datenschutzerklaerungen')) {
+	elseif (str_contains($low, 'privacy') || str_contains($url, 'privacy-policy') || str_contains($url, 'datenschutzerklaerungen')) {
 		$chosen = $icons['privacy'];
 	}
 
