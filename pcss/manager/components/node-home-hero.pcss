@@ -1,0 +1,35 @@
+/* Home page (node 58) hero: text left, media right — matches SODa marketing layout. */
+
+@layer components {
+  /* field--name-body and field__item are on the same div when the label is hidden. */
+  .scs-manager--node-home .field--name-body > .scs-manager--home-section--hero .scs-manager--home-hero,
+  .scs-manager--node-home .field--name-body.field__item > .scs-manager--home-section--hero .scs-manager--home-hero,
+  .scs-manager--node-home .field--name-body > .scs-manager--home-hero,
+  .scs-manager--node-home .field--name-body.field__item > .scs-manager--home-hero {
+    @apply grid grid-cols-1 items-center gap-8 py-6 md:grid-cols-2 md:gap-12 md:py-10;
+  }
+
+  .scs-manager--home-hero-text {
+    @apply flex flex-col gap-4;
+  }
+
+  .scs-manager--home-hero-text > :is(h2, p) {
+    @apply m-0;
+  }
+
+  .scs-manager--home-hero-text h2 {
+    @apply text-left text-4xl leading-tight font-bold text-stone-900 lg:text-5xl;
+  }
+
+  .scs-manager--home-hero > :is(article.media, figure.media, .media, .align-center) {
+    @apply m-0 overflow-hidden rounded-2xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.25)];
+  }
+
+  .scs-manager--home-hero :is(img, video) {
+    @apply block h-auto w-full;
+  }
+
+  .scs-manager--home-hero .media {
+    @apply w-full;
+  }
+}

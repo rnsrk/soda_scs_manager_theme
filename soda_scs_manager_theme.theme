@@ -8,7 +8,128 @@
 declare(strict_types=1);
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Render\Markup;
+use Drupal\node\NodeInterface;
+use Drupal\views\Views;
+
+/** Node ID of the marketing home page (/{lang}/home). */
+const SODA_SCS_MANAGER_THEME_HOME_NODE_NID = 58;
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function soda_scs_manager_theme_preprocess_node(array &$variables): void {
+	if (!isset($variables['node']) || !$variables['node'] instanceof NodeInterface) {
+		return;
+	}
+
+	if ((int) $variables['node']->id() === SODA_SCS_MANAGER_THEME_HOME_NODE_NID) {
+		$variables['attributes']['class'][] = 'scs-manager--node-home';
+	}
+}
+
+/**
+ * Implements hook_preprocess_field().
+ */
+function soda_scs_manager_theme_preprocess_field(array &$variables): void {
+	if ($variables['field_name'] !== 'body' || $variables['field_type'] !== 'text_with_summary') {
+		return;
+	}
+
+	$node = $variables['element']['#object'] ?? NULL;
+	if (!$node instanceof NodeInterface || (int) $node->id() !== SODA_SCS_MANAGER_THEME_HOME_NODE_NID) {
+		return;
+	}
+
+	if (empty($variables['items'][0]['content'])) {
+		return;
+	}
+
+	$processed = (string) $node->get('body')->processed;
+	if (!str_contains($processed, 'scs-manager--home-section--applications')) {
+		return;
+	}
+
+	$injection = soda_scs_manager_theme_build_home_applications_injection($processed);
+	if ($injection === NULL) {
+		return;
+	}
+
+	$variables['items'][0]['content'] = [
+		'#markup' => Markup::create($injection['markup']),
+		'#attached' => $injection['attached'],
+		'#cache' => [
+			'contexts' => $variables['element']['#cache']['contexts'] ?? ['languages:language_interface'],
+			'tags' => array_values(array_unique(array_merge(
+				$variables['element']['#cache']['tags'] ?? [],
+				['config:views.view.applications', 'node_list:application'],
+			))),
+		],
+	];
+}
+
+/**
+ * Builds injected home body markup with the applications view embed.
+ *
+ * @return array{attached: array, markup: string}|null
+ *   Injection payload, or NULL when the placeholder is missing.
+ */
+function soda_scs_manager_theme_build_home_applications_injection(string $markup): ?array {
+	$view = Views::getView('applications');
+	if ($view === NULL) {
+		return NULL;
+	}
+
+	$view->setDisplay('block_1');
+	$view->preExecute();
+	$view->execute();
+	$render = $view->buildRenderable('block_1');
+	$embed = (string) \Drupal::service('renderer')->renderInIsolation($render);
+	$embedHtml = '<div class="scs-manager--home-applications-embed">' . $embed . '</div>';
+
+	if (str_contains($markup, 'scs-manager--home-applications-embed')) {
+		$replaced = (string) preg_replace(
+			'#<div class="scs-manager--home-applications-embed">.*?</div>#s',
+			$embedHtml,
+			$markup,
+			1,
+		);
+		if ($replaced !== $markup) {
+			return [
+				'attached' => $render['#attached'] ?? [],
+				'markup' => $replaced,
+			];
+		}
+	}
+
+	if (preg_match(
+		'#(<section[^>]*scs-manager--home-section--applications[^>]*>\s*<h2[^>]*>.*?</h2>\s*)#s',
+		$markup,
+		$matches,
+	)) {
+		return [
+			'attached' => $render['#attached'] ?? [],
+			'markup' => str_replace($matches[1], $matches[1] . $embedHtml, $markup),
+		];
+	}
+
+	return NULL;
+}
+
+/**
+ * Implements hook_block_view_alter().
+ */
+function soda_scs_manager_theme_block_view_alter(array &$build, BlockPluginInterface $block): void {
+	if ($block->getPluginId() !== 'views_block:applications-block_1') {
+		return;
+	}
+
+	$node = \Drupal::routeMatch()->getParameter('node');
+	if ($node instanceof NodeInterface && (int) $node->id() === SODA_SCS_MANAGER_THEME_HOME_NODE_NID) {
+		$build['#access'] = FALSE;
+	}
+}
 
 /**
  * Implements hook_preprocess_menu_link().

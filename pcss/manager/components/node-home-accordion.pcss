@@ -1,0 +1,139 @@
+/* Home page accordion (node body markup with .scs-manager--accordion). */
+
+@layer components {
+  .scs-manager--accordion {
+    @apply mx-auto mb-12 flex w-[80%] max-w-none flex-col gap-4;
+  }
+
+  .scs-manager--accordion-title {
+    @apply m-0 mb-0 text-center text-2xl leading-snug font-bold text-stone-900 md:text-3xl;
+  }
+
+  .scs-manager--accordion-item {
+    @apply overflow-hidden rounded-lg border border-stone-200 bg-stone-50;
+    transition: background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .scs-manager--accordion-item[open] {
+    @apply bg-white;
+  }
+
+  .scs-manager--accordion-actions {
+    @apply mt-4;
+  }
+}
+
+/*
+ * Unlayered: Claro sets summary { display: list-item } outside @layer, which
+ * prevents flex layout and hides our chevron off to the side of the title text.
+ */
+.scs-manager--accordion-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  list-style: none;
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.375;
+  font-weight: 600;
+  color: #1c1917;
+  transition: background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scs-manager--accordion-summary::-webkit-details-marker {
+  display: none;
+}
+
+.scs-manager--accordion-summary::marker {
+  content: '';
+}
+
+.scs-manager--accordion-item {
+  interpolate-size: allow-keywords;
+}
+
+.scs-manager--accordion-item[open] > .scs-manager--accordion-summary {
+  background-color: #fff;
+}
+
+.scs-manager--accordion-caret {
+  flex-shrink: 0;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-right: 2px solid #1c1917;
+  border-bottom: 2px solid #1c1917;
+  transform: rotate(45deg);
+  margin-top: -0.125rem;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), margin-top 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scs-manager--accordion-item[open] > .scs-manager--accordion-summary .scs-manager--accordion-caret {
+  transform: rotate(-135deg);
+  margin-top: 0.125rem;
+}
+
+/* Fallback caret when editors omit the span (CSS-only chevron). */
+.scs-manager--accordion-summary:not(:has(.scs-manager--accordion-caret))::after {
+  content: '';
+  flex-shrink: 0;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-right: 2px solid #1c1917;
+  border-bottom: 2px solid #1c1917;
+  transform: rotate(45deg);
+  margin-top: -0.125rem;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), margin-top 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scs-manager--accordion-item[open] > .scs-manager--accordion-summary:not(:has(.scs-manager--accordion-caret))::after {
+  transform: rotate(-135deg);
+  margin-top: 0.125rem;
+}
+
+/* Smooth open/close for native <details> (height + content-visibility). */
+.scs-manager--accordion-item::details-content {
+  height: 0;
+  overflow: hidden;
+  transition:
+    height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    content-visibility 0.4s allow-discrete;
+}
+
+.scs-manager--accordion-item[open]::details-content {
+  height: auto;
+}
+
+@starting-style {
+  .scs-manager--accordion-item[open]::details-content {
+    height: 0;
+  }
+}
+
+.scs-manager--accordion-panel {
+  border-top: 1px solid #e7e5e4;
+  padding: 0.75rem 1.25rem 1.25rem;
+  opacity: 0;
+  transform: translateY(-0.25rem);
+  transition:
+    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scs-manager--accordion-item[open] .scs-manager--accordion-panel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scs-manager--accordion-item,
+  .scs-manager--accordion-summary,
+  .scs-manager--accordion-caret,
+  .scs-manager--accordion-summary:not(:has(.scs-manager--accordion-caret))::after,
+  .scs-manager--accordion-item::details-content,
+  .scs-manager--accordion-panel {
+    transition: none;
+  }
+}

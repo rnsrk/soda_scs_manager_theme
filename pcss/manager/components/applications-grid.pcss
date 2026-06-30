@@ -1,0 +1,57 @@
+/* Applications view tiles — horizontal cards (logo left, copy right, arrow CTA). */
+
+@layer components {
+  .soda-scs-manager__grid--applications {
+    @apply items-stretch gap-5 md:grid-cols-3;
+  }
+
+  .soda-scs-manager__grid--applications > .soda-scs-manager__box {
+    @apply relative min-h-0 items-stretch rounded-xl bg-[#eef0f4] p-6 pb-14 text-left;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    column-gap: 1rem;
+    row-gap: 0.375rem;
+    height: 100%;
+    border: none;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .soda-scs-manager__grid--applications > .soda-scs-manager__box:hover {
+    @apply bg-[#e4e6eb];
+  }
+
+  /* Replaces legacy Sammlungen border/dot (::before / ::after in features.pcss). */
+  .soda-scs-manager__grid--applications > .soda-scs-manager__box::before {
+    content: none;
+    display: none;
+  }
+
+  .soda-scs-manager__grid--applications > .soda-scs-manager__box::after {
+    content: '→';
+    position: absolute;
+    right: 1.25rem;
+    bottom: 1rem;
+    box-sizing: border-box;
+    width: auto;
+    height: auto;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    pointer-events: none;
+    z-index: 5;
+    font-size: 2rem;
+    line-height: 1;
+    font-weight: 400;
+    color: #1c1917;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .soda-scs-manager__grid--applications > .soda-scs-manager__box:hover::after {
+    transform: translateX(3px);
+  }
+
+  .soda-scs-manager__grid--applications > .soda-scs-manager__box > .soda-scs-manager--app-link:focus-visible {
+    @apply outline-2 outline-offset-2 outline-stone-900;
+  }
+}

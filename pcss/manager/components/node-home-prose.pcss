@@ -1,0 +1,43 @@
+/* Shared body copy on home page (node 58): hero, section intros, accordion panels. */
+
+@layer components {
+  .scs-manager--node-home :is(
+    .field--name-body > p,
+    .field.field--name-body.field__item > p,
+    .scs-manager--home-hero-text p,
+    .scs-manager--home-section--lifecycle > p,
+    .scs-manager--accordion-panel p
+  ) {
+    @apply mt-0 text-lg leading-relaxed text-stone-700;
+    font-family: "metropolis", sans-serif;
+  }
+
+  .scs-manager--home-section--lifecycle > p {
+    @apply mb-6;
+  }
+
+  .scs-manager--accordion-panel p:not(:last-child) {
+    @apply mb-4;
+  }
+
+  .scs-manager--node-home :is(
+    .field--name-body > p strong,
+    .field.field--name-body.field__item > p strong,
+    .scs-manager--home-hero-text p strong,
+    .scs-manager--home-section--lifecycle > p strong,
+    .scs-manager--accordion-panel p strong
+  ) {
+    @apply font-semibold text-stone-800;
+  }
+
+  /* Lifecycle cards: slightly smaller than section body copy. */
+  .scs-manager--node-home .soda-scs-manager__grid:not(.soda-scs-manager__grid--applications) > .soda-scs-manager__box p {
+    @apply text-base leading-normal text-stone-700;
+    font-family: "metropolis", sans-serif;
+    font-weight: 400;
+  }
+
+  .scs-manager--node-home .soda-scs-manager__grid:not(.soda-scs-manager__grid--applications) > .soda-scs-manager__box p strong {
+    @apply font-semibold text-stone-800;
+  }
+}

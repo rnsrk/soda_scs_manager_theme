@@ -1,0 +1,47 @@
+/*
+ * Home page vertical rhythm (unlayered).
+ * Claro .text-formatted sets h2/p margins outside @layer; reset and apply one scale:
+ * - heading → intro/content: 1rem
+ * - intro → next block: 1.5rem
+ * - section → section: 3rem (see node-home-section.pcss)
+ */
+
+.text-formatted .scs-manager--node-home .scs-manager--home-section--lifecycle > h2,
+.text-formatted .scs-manager--node-home .scs-manager--home-section--applications > h2,
+.scs-manager--node-home .text-formatted .scs-manager--home-section--lifecycle > h2,
+.scs-manager--node-home .text-formatted .scs-manager--home-section--applications > h2,
+.field--name-body.text-formatted .scs-manager--home-section--lifecycle > h2,
+.field--name-body.text-formatted .scs-manager--home-section--applications > h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.text-formatted .scs-manager--accordion-title,
+.scs-manager--node-home .text-formatted .scs-manager--accordion-title {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.text-formatted .scs-manager--home-hero-text > h2,
+.scs-manager--node-home .text-formatted .scs-manager--home-hero-text > h2,
+.field--name-body.text-formatted .scs-manager--home-hero-text > h2 {
+  margin: 0;
+}
+
+.text-formatted .scs-manager--home-hero-text > p,
+.scs-manager--node-home .text-formatted .scs-manager--home-hero-text > p,
+.field--name-body.text-formatted .scs-manager--home-hero-text > p {
+  margin: 0;
+}
+
+.text-formatted .scs-manager--node-home .scs-manager--home-section--lifecycle > p,
+.scs-manager--node-home .text-formatted .scs-manager--home-section--lifecycle > p,
+.field--name-body.text-formatted .scs-manager--home-section--lifecycle > p {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.text-formatted .scs-manager--accordion > div:has(.scs-manager--home-hero-cta),
+.scs-manager--node-home .text-formatted .scs-manager--accordion > div:has(.scs-manager--home-hero-cta) {
+  margin-top: 1rem;
+}

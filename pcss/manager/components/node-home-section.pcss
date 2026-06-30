@@ -1,0 +1,26 @@
+/* Home page sections (CKEditor markup with .scs-manager--home-section). */
+
+@layer components {
+  .scs-manager--node-home .scs-manager--home-section {
+    @apply mb-12;
+  }
+
+  /* Section headings (lifecycle, applications, accordion title). */
+  .scs-manager--node-home .scs-manager--home-section--lifecycle > h2,
+  .scs-manager--node-home .scs-manager--home-section--applications > h2,
+  .scs-manager--node-home .scs-manager--accordion-title {
+    @apply m-0 mb-4 text-2xl leading-snug font-bold text-stone-900 md:text-3xl;
+  }
+
+  .scs-manager--node-home .scs-manager--home-section--applications > h2 {
+    @apply text-center;
+  }
+
+  .scs-manager--home-section--applications .scs-manager--home-applications-embed {
+    @apply mt-0;
+  }
+
+  .scs-manager--home-section--applications .scs-manager--home-applications-embed .view {
+    @apply m-0;
+  }
+}
