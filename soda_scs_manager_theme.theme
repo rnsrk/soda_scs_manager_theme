@@ -13,22 +13,6 @@ use Drupal\Core\Render\Markup;
 use Drupal\node\NodeInterface;
 use Drupal\views\Views;
 
-/** Node ID of the marketing home page (/{lang}/home). */
-const SODA_SCS_MANAGER_THEME_HOME_NODE_NID = 58;
-
-/**
- * Implements hook_preprocess_node().
- */
-function soda_scs_manager_theme_preprocess_node(array &$variables): void {
-	if (!isset($variables['node']) || !$variables['node'] instanceof NodeInterface) {
-		return;
-	}
-
-	if ((int) $variables['node']->id() === SODA_SCS_MANAGER_THEME_HOME_NODE_NID) {
-		$variables['attributes']['class'][] = 'scs-manager--node-home';
-	}
-}
-
 /**
  * Implements hook_preprocess_field().
  */
@@ -37,8 +21,12 @@ function soda_scs_manager_theme_preprocess_field(array &$variables): void {
 		return;
 	}
 
+	if (!\Drupal::service('path.matcher')->isFrontPage()) {
+		return;
+	}
+
 	$node = $variables['element']['#object'] ?? NULL;
-	if (!$node instanceof NodeInterface || (int) $node->id() !== SODA_SCS_MANAGER_THEME_HOME_NODE_NID) {
+	if (!$node instanceof NodeInterface) {
 		return;
 	}
 
@@ -60,7 +48,10 @@ function soda_scs_manager_theme_preprocess_field(array &$variables): void {
 		'#markup' => Markup::create($injection['markup']),
 		'#attached' => $injection['attached'],
 		'#cache' => [
-			'contexts' => $variables['element']['#cache']['contexts'] ?? ['languages:language_interface'],
+			'contexts' => array_values(array_unique(array_merge(
+				$variables['element']['#cache']['contexts'] ?? ['languages:language_interface'],
+				['url.path.is_front'],
+			))),
 			'tags' => array_values(array_unique(array_merge(
 				$variables['element']['#cache']['tags'] ?? [],
 				['config:views.view.applications', 'node_list:application'],
@@ -125,8 +116,7 @@ function soda_scs_manager_theme_block_view_alter(array &$build, BlockPluginInter
 		return;
 	}
 
-	$node = \Drupal::routeMatch()->getParameter('node');
-	if ($node instanceof NodeInterface && (int) $node->id() === SODA_SCS_MANAGER_THEME_HOME_NODE_NID) {
+	if (\Drupal::service('path.matcher')->isFrontPage()) {
 		$build['#access'] = FALSE;
 	}
 }

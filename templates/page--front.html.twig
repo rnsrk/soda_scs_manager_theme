@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Front page: marketing home layout (no page title, home page styles).
+ *
+ * @see page.html.twig
+ */
+#}
+{% extends "page.html.twig" %}
+
+{# Omit the page title block — the hero section provides the heading. #}
+{% block content_above %}{% endblock %}
+
+{% block content_main %}
+  <div class="scs-manager--content-main scs-manager--node-home min-w-0 flex-1">
+    {{ page.content }}
+  </div>
+{% endblock %}

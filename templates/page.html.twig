@@ -60,7 +60,9 @@
   {% endif %}
 
   <div class="layout-container scs-manager--main-layout-container">
-    {{ page.content_above }}
+    {% block content_above %}
+      {{ page.content_above }}
+    {% endblock %}
     {{ page.pre_content }}
     <div class="page-content clearfix scs-manager--page-content">
       {% if page.help %}
@@ -69,9 +71,11 @@
         </div>
       {% endif %}
       <div class="scs-manager--content-with-sidebar flex flex-col gap-6 md:flex-row md:items-start">
-        <div class="scs-manager--content-main min-w-0 flex-1">
-          {{ page.content }}
-        </div>
+        {% block content_main %}
+          <div class="scs-manager--content-main min-w-0 flex-1">
+            {{ page.content }}
+          </div>
+        {% endblock %}
         {% if page.sidebar %}
           <aside class="scs-manager--sidebar w-full shrink-0 md:w-72 lg:w-80" role="complementary">
             {{ page.sidebar }}
