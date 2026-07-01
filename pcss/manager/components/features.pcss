@@ -3,7 +3,7 @@
 @layer components {
   .soda-scs-manager__grid {
     @apply grid min-h-0 grid-cols-1 md:grid-cols-3 items-stretch;
-    gap: 2rem;
+    gap: 3.5rem;
   }
 
   /* Lifecycle / content grids: natural card height, tighter rhythm. */
@@ -21,6 +21,7 @@
   /* Applications view: up to 3 columns on wide screens (matches prior Views column count). */
   .soda-scs-manager__grid--applications {
     @apply xl:grid-cols-3;
+    gap: 3.5rem;
   }
 
   .soda-scs-manager__grid > .soda-scs-manager__box {
