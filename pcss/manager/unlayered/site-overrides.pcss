@@ -261,18 +261,26 @@ a.soda-scs-manager--tile-card::before {
   text-align: left;
 }
 
+/*
+ * Application card titles: black heading style (not body-link orange).
+ * !important beats .scs-manager--content-main a:not(...) prose link rules (high :not() specificity).
+ */
 :is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box .views-field-title a {
   font-family: "metropolis", sans-serif;
-  font-size: 0.75rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  line-height: 1.3;
-  color: #1c1917;
-  text-decoration: none;
+  line-height: 1.35;
+  color: #1c1917 !important;
+  text-decoration: none !important;
   transition: color 0.2s ease-in-out;
 }
 
-:is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box .views-field-title a:hover {
-  color: #1c1917;
+:is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box .views-field-title a:hover,
+:is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box .views-field-title a:focus,
+:is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box .views-field-title a:visited,
+:is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box .views-field-title a:active {
+  color: #1c1917 !important;
+  text-decoration: none !important;
 }
 
 :is(.view-id-applications, .view-id-application) .soda-scs-manager__grid--applications > .soda-scs-manager__box .media {

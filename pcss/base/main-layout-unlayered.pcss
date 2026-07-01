@@ -1,4 +1,31 @@
 /*
+ * Sticky footer: on short pages keep the dark footer bar at the viewport bottom.
+ * DOM: body > .page-wrapper > main > … > .scs-manager--main-layout-container + footer.
+ * The main column grows so header/nav stay at the top and the footer sits at the bottom.
+ */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.page-wrapper {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+}
+
+.page-wrapper > main {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+}
+
+.layout-container.scs-manager--main-layout-container {
+  flex: 1 0 auto;
+}
+
+/*
  * Center the primary page column.
  * Claro system-admin--layout.css sets horizontal margins on `.layout-container` using
  * selectors such as `.toolbar-tray-open:not(.toolbar-vertical) .layout-container`
