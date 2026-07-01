@@ -4,3 +4,8 @@ global:
     theme:
       css/inter.css: { minified: false, preprocess: false, weight: -10 }
       css/style.css: { minified: true, preprocess: false, weight: 200 }
+  js:
+    js/scroll-to-top.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

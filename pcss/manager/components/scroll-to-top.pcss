@@ -1,0 +1,49 @@
+@layer components {
+  .scs-manager--scroll-to-top {
+  @apply
+    fixed
+    bottom-6
+    right-6
+    z-50
+    flex
+    h-11
+    w-11
+    items-center
+    justify-center
+    rounded-full
+    border
+    border-orange-500/40
+    bg-stone-900/90
+    text-orange-400
+    shadow-lg
+    shadow-stone-950/40
+    backdrop-blur-sm
+    transition-[opacity,transform,visibility]
+    duration-200
+    opacity-0
+    invisible
+    translate-y-2
+    pointer-events-none
+    hover:bg-stone-800
+    hover:text-orange-300
+    focus-visible:outline-none
+    focus-visible:ring-2
+    focus-visible:ring-orange-500
+    focus-visible:ring-offset-2
+    focus-visible:ring-offset-stone-950;
+  }
+
+  .scs-manager--scroll-to-top.is-visible {
+    @apply opacity-100 visible translate-y-0 pointer-events-auto;
+  }
+
+  .scs-manager--scroll-to-top svg {
+    @apply h-5 w-5 shrink-0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scs-manager--scroll-to-top {
+      @apply transition-none translate-y-0;
+    }
+  }
+}
