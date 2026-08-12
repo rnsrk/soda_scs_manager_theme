@@ -291,6 +291,25 @@
     @apply relative z-[2] min-h-0 flex-1 overflow-y-auto bg-white;
   }
 
+  /* Above .soda-scs-manager--card-link (z-20) so action buttons stay clickable. */
+  .soda-scs-manager--card-actions {
+    @apply relative z-[55] mt-3 flex w-full shrink-0 flex-col gap-2 bg-white;
+  }
+
+  a.soda-scs-manager--card-action-button {
+    @apply block w-full rounded-md border-2 border-[#e68500] bg-[#e68500] px-3 py-2 text-center text-sm font-semibold text-white no-underline transition-colors duration-150;
+    pointer-events: auto;
+
+    &:hover,
+    &:focus-visible {
+      @apply border-[#b86a00] bg-[#b86a00] text-white no-underline outline-none;
+    }
+
+    &:active {
+      @apply border-[#8c5200] bg-[#8c5200];
+    }
+  }
+
   /* Normalize media area so cards align visually regardless of image proportions. */
   .soda-scs-manager--image-wrapper {
     @apply relative z-[2] flex aspect-[4/3] w-full shrink-0 items-center justify-center overflow-hidden bg-white;
