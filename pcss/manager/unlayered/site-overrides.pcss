@@ -732,3 +732,23 @@ nav.menu--language-interface ul.links {
   padding: 0;
 }
 
+/*
+ * Claro styles raw <button> elements (padding, min-height, green focus).
+ * Health speed-dial chips must stay 2rem circles matching the status icon.
+ */
+button.soda-scs-manager--health-icon,
+button.soda-scs-manager--health-action {
+  min-height: 0;
+  min-width: 0;
+  padding: 0;
+  line-height: 1;
+  background-image: none;
+}
+
+button.soda-scs-manager--health-icon:focus:not(:focus-visible),
+button.soda-scs-manager--health-action:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+
