@@ -672,7 +672,52 @@
   }
 
   .soda-scs-manager--card-feed-item {
-    @apply relative z-[55] min-w-0;
+    @apply relative z-[55] flex min-w-0 items-start gap-2 text-left;
+  }
+
+  .soda-scs-manager--card-feed-item-text {
+    @apply min-w-0 flex-1;
+  }
+
+  .soda-scs-manager--card-feed-action {
+    @apply mt-0.5 inline-block h-5 w-5 shrink-0;
+    background-color: #e68500;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+  }
+
+  .soda-scs-manager--card-feed-action--created {
+    mask-image: url('/modules/custom/soda_scs_manager/assets/images/feed-action-created-mask.svg');
+    -webkit-mask-image: url('/modules/custom/soda_scs_manager/assets/images/feed-action-created-mask.svg');
+  }
+
+  .soda-scs-manager--card-feed-action--changed {
+    mask-image: url('/modules/custom/soda_scs_manager/assets/images/feed-action-changed-mask.svg');
+    -webkit-mask-image: url('/modules/custom/soda_scs_manager/assets/images/feed-action-changed-mask.svg');
+  }
+
+  .soda-scs-manager--card-feed-action--deleted {
+    mask-image: url('/modules/custom/soda_scs_manager/assets/images/feed-action-deleted-mask.svg');
+    -webkit-mask-image: url('/modules/custom/soda_scs_manager/assets/images/feed-action-deleted-mask.svg');
+  }
+
+  .soda-scs-manager--card-feed-action--restored {
+    mask-image: url('/modules/custom/soda_scs_manager/assets/images/feed-action-restored-mask.svg');
+    -webkit-mask-image: url('/modules/custom/soda_scs_manager/assets/images/feed-action-restored-mask.svg');
+  }
+
+  .soda-scs-manager--card-feed-action--renamed {
+    mask-image: url('/modules/custom/soda_scs_manager/assets/images/feed-action-renamed-mask.svg');
+    -webkit-mask-image: url('/modules/custom/soda_scs_manager/assets/images/feed-action-renamed-mask.svg');
+  }
+
+  .soda-scs-manager--card-feed-action--moved {
+    mask-image: url('/modules/custom/soda_scs_manager/assets/images/feed-action-moved-mask.svg');
+    -webkit-mask-image: url('/modules/custom/soda_scs_manager/assets/images/feed-action-moved-mask.svg');
   }
 
   a.soda-scs-manager--card-feed-link {
