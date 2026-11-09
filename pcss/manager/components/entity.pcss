@@ -94,28 +94,30 @@
       }
     }
 
+    &.health-badge--stopped {
+      @apply bg-stone-100 text-stone-700 border border-stone-200;
+
+      .health-badge__symbol {
+        @apply text-stone-500;
+      }
+    }
+
+    &.health-badge--problem,
+    &.health-badge--error {
+      @apply bg-red-100 text-red-800 border border-red-200;
+
+      .health-badge__symbol {
+        @apply text-red-600;
+      }
+    }
+
+    &.health-badge--unknown,
     &.health-badge--starting {
       @apply bg-amber-100 text-amber-800 border border-amber-200;
       animation: health-badge-bump 1.5s ease-in-out infinite;
 
       .health-badge__symbol {
         @apply text-amber-600;
-      }
-    }
-
-    &.health-badge--stopped {
-      @apply bg-red-100 text-red-800 border border-red-200;
-
-      .health-badge__symbol {
-        @apply text-red-600;
-      }
-    }
-
-    &.health-badge--error {
-      @apply bg-red-100 text-red-800 border border-red-200;
-
-      .health-badge__symbol {
-        @apply text-red-600;
       }
     }
   }

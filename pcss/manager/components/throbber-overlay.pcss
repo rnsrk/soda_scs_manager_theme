@@ -1,30 +1,6 @@
 /* Throbber Overlay Component. */
 
 @layer components {
-  /* Above coworking intro (z-[60]) and add-app modal (9999); full-screen wait must capture input. */
-  .soda-scs-manager__throbber-overlay {
-    @apply fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-black/70 text-white;
-    @apply transition-opacity duration-300;
-    @apply backdrop-blur-sm;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .soda-scs-manager__throbber-overlay--active {
-    @apply opacity-100 pointer-events-auto;
-  }
-
-  .soda-scs-manager__throbber-overlay__content {
-    @apply flex flex-col items-center justify-center max-w-2xl w-full px-6;
-    max-height: min(100vh, 100dvh);
-    overflow-y: auto;
-  }
-
-  .soda-scs-manager__throbber-overlay__spinner {
-    @apply w-16 h-16 mb-4 border-4 border-orange-300 border-t-orange-500 rounded-full;
-    @apply animate-spin;
-  }
-
   .soda-scs-manager__throbber-overlay__spinner--success {
     @apply border-green-300 border-t-green-500;
     animation: none;
@@ -59,7 +35,7 @@
   }
 
   .soda-scs-manager__throbber-overlay__info {
-    @apply mt-6 text-base text-center max-w-lg px-6 leading-relaxed;
+    @apply mt-6 text-base text-center max-w-lg leading-relaxed;
   }
 
   /* Progress Bar. */
@@ -211,4 +187,5 @@
   .soda-scs-manager__log--error {
     @apply text-red-400;
   }
+
 }

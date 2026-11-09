@@ -71,22 +71,52 @@
       background-image: url('/modules/contrib/soda_scs_manager/assets/images/health-running.svg');
     }
 
-    &.soda-scs-manager--health-starting::before {
-      background-image: url('/modules/contrib/soda_scs_manager/assets/images/health-starting.svg');
-      animation: pulse 1.5s ease-in-out infinite;
-    }
-
     &.soda-scs-manager--health-stopped::before {
       background-image: url('/modules/contrib/soda_scs_manager/assets/images/health-stopped.svg');
     }
 
+    &.soda-scs-manager--health-problem::before,
     &.soda-scs-manager--health-failure::before {
       background-image: url('/modules/contrib/soda_scs_manager/assets/images/health-failure.svg');
     }
 
-    &.soda-scs-manager--health-unknown::before {
+    &.soda-scs-manager--health-unknown::before,
+    &.soda-scs-manager--health-starting::before {
       background-image: url('/modules/contrib/soda_scs_manager/assets/images/health-starting.svg');
       animation: pulse 1.5s ease-in-out infinite;
+    }
+  }
+
+  .application__health-status {
+    @apply inline-flex items-center gap-1.5 text-xs font-medium;
+
+    .application__health__icon {
+      @apply inline-block h-2.5 w-2.5 rounded-full;
+      background-color: currentColor;
+    }
+
+    &.application__health-status--running {
+      @apply text-emerald-700;
+    }
+
+    &.application__health-status--stopped {
+      @apply text-stone-500;
+    }
+
+    &.application__health-status--problem {
+      @apply text-rose-700;
+    }
+
+    &.application__health-status--unknown {
+      @apply text-amber-700;
+    }
+
+    &.application__health-status--starting {
+      @apply text-amber-700;
+
+      .application__health__icon {
+        animation: pulse 1.5s ease-in-out infinite;
+      }
     }
   }
 
@@ -256,11 +286,15 @@
   .soda-scs-manager--health-control[data-health-state="running"] [data-lifecycle-action="start"],
   .soda-scs-manager--health-control[data-health-state="stopped"] [data-lifecycle-action="stop"],
   .soda-scs-manager--health-control[data-health-state="stopped"] [data-lifecycle-action="restart"],
+  .soda-scs-manager--health-control[data-health-state="problem"] .soda-scs-manager--health-actions,
+  .soda-scs-manager--health-control[data-health-state="unknown"] .soda-scs-manager--health-actions,
   .soda-scs-manager--health-control[data-health-state="starting"] .soda-scs-manager--health-actions,
   .soda-scs-manager--health-control[data-health-state="other"] .soda-scs-manager--health-actions {
     display: none;
   }
 
+  .soda-scs-manager--health-control[data-health-state="problem"] .soda-scs-manager--health-icon,
+  .soda-scs-manager--health-control[data-health-state="unknown"] .soda-scs-manager--health-icon,
   .soda-scs-manager--health-control[data-health-state="starting"] .soda-scs-manager--health-icon,
   .soda-scs-manager--health-control[data-health-state="other"] .soda-scs-manager--health-icon {
     cursor: default;
@@ -490,6 +524,7 @@
     background: rgba(87, 83, 78, 0.55);
   }
 
+  .soda-scs-manager--card-content-wrapper.soda-scs-manager--card--not-running.soda-scs-manager--card--status-problem::after,
   .soda-scs-manager--card-content-wrapper.soda-scs-manager--card--not-running.soda-scs-manager--card--status-offline::after {
     background: rgba(68, 64, 60, 0.62);
   }

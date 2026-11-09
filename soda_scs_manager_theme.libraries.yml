@@ -1,5 +1,5 @@
 global:
-  version: 1.0.1
+  version: 1.0.4
   css:
     theme:
       css/inter.css: { minified: false, preprocess: false, weight: -10 }

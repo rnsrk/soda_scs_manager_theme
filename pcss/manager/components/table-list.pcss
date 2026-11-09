@@ -325,24 +325,29 @@
   .component-health-status {
     @apply inline-flex items-center text-sm font-medium;
 
-    &.health-pending {
-      @apply text-gray-500;
-    }
-
-    &.health-loading {
-      color: rgb(255, 138, 5);
-
-      .dots {
-        @apply inline-block w-4;
-      }
-    }
-
+    &.health-running,
     &.health-success {
       @apply text-green-600 font-semibold;
     }
 
+    &.health-stopped {
+      @apply text-stone-500 font-semibold;
+    }
+
+    &.health-problem,
     &.health-error {
       @apply text-red-600 font-semibold cursor-help;
+    }
+
+    &.health-unknown,
+    &.health-starting,
+    &.health-pending,
+    &.health-loading {
+      @apply text-amber-700 font-semibold;
+
+      .dots {
+        @apply inline-block w-4;
+      }
     }
   }
 

@@ -96,13 +96,13 @@
     @apply relative shrink-0 px-4 pb-2 pt-4 sm:px-6 sm:pt-5;
   }
 
-  /* Physical right edge when Tailwind utilities from Twig are not in the bundle. */
+  /* Right edge. Chrome reset is unlayered (intro-wizard.pcss) so it beats theme `button`. */
   .scs-manager--coworking-intro-skip-row {
     @apply text-right;
   }
 
   .scs-manager--coworking-intro-skip {
-    @apply z-10 max-w-[min(12rem,42%)] text-end text-sm leading-snug text-stone-500 underline;
+    @apply z-10 max-w-full text-end text-sm leading-snug text-stone-500 underline;
   }
 
   .scs-manager--coworking-intro-skip:hover {
